@@ -1,0 +1,34 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  @media (max-width: 768px) {
+    .hellohome {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; 
+      margin-left: 10px;
+    }
+    .td-status{
+        margin-top: 20px;
+    }
+    .extraStatus{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .extraStatus p{
+        font-size: 18px;
+    }
+    .hellohome-sales{
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+    .days-cs{
+        display: flex;
+        flex-direction: column;
+    }
+  }
+  
