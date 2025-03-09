@@ -7,6 +7,7 @@ import dashboard from "./images/dashboard.png";
 import order from "./images/order.png";
 import ap from "./images/a&p.png";
 import deliver from "./images/delivered.png";
+import foods from "./images/foods.png";
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Sidebar: React.FC = () => {
   const menuItems = [
     { name: "Dashboard", path: "/home", icon: dashboard },
     { name: "Orders", path: "/order", icon: order },
+    { name: "Foods", path: "/foods", icon: foods },
     { name: "Account & Payments", path: "/A&P", icon: ap },
     { name: "Delivery", path: "/delivery", icon: deliver },
   ];
@@ -57,7 +59,7 @@ const Sidebar: React.FC = () => {
             <li
               key={name}
               className={`p-4 flex items-center cursor-pointer transition-all duration-300 
-                ${activeItem === name ? "bg-[#FCE5D6] border-r-4 border-[#FF914B]" : "hover:bg-[#FCE5D6]"}`}
+                ${activeItem === name ? "bg-[ #FCE5D6] border-r-4 border-[#FF914B]" : "hover:bg-[#FCE5D6]"}`}
               onClick={() => handleMenuItemClick(name, path)}
             >
               <img src={icon} alt={`${name} Icon`} className="h-6 w-6 mr-2" />
