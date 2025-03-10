@@ -70,7 +70,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* Main Content Wrapper (Ensures Sidebar doesn't affect layout) */}
-      <div className="flex-1 pt-[15px] bg-[#F6F6FE] ml-0 md:ml-[250px]">
+      <div className="flex-1 bg-[#F6F6FE] ml-0 md:ml-[250px]">
         {/* Header */}
         <div className="bg-white h-[65px] sticky top-0 z-30 flex items-center justify-between px-4 shadow-md">
           {/* Toggle Button */}

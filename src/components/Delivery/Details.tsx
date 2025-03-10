@@ -45,9 +45,9 @@ const Details = () => {
       </div>
 
       {/* Orders List */}
-      {deliver.map((person) => (
+      {deliver.map((person, index) => (
         <React.Fragment key={person.sn}>
-          <div
+          <div key={index}
             className={`flex text-center items-center gap-[3px] ${
               person.sn % 1 === 0 ? "bg-[#ECECF1] mt-[20px]" : ""
             }`}
