@@ -36,23 +36,23 @@ const Categories: React.FC = () => {
   ];
 
   return (
-    <div className="mt-[10px]">
-      {/* Search Bar */}
-      <div className="ml-[60%] flex gap-[30px]">
-        <div className="w-full max-w-[200px] md:max-w-[250px]">
-          <input
-            type="text"
-            placeholder="Search here..."
-            className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-5 pr-10 rounded-md w-full"
-          />
-          <button type="submit" className="absolute right-2 top-2"></button>
-        </div>
-        <div>
-          <button className="bg-[#06542F] h-10 font-bold rounded-md text-[#fff] w-[150px]">
-            Add Categories
-          </button>
-        </div>
+    <div className="">
+    {/* Search Bar */}
+    <div className="ml-[60%] flex gap-[30px]">
+      <div className="w-full max-w-[200px] md:max-w-[250px]">
+        <input
+          type="text"
+          placeholder="Search here..."
+          className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-5 pr-10 rounded-md w-full"
+        />
+        <button type="submit" className="absolute right-2 top-2"></button>
       </div>
+      <div>
+        <button className="bg-[#06542F] h-10 font-bold rounded-md text-[#fff] w-[150px]">
+          Add Categories
+        </button>
+      </div>
+    </div>
 
       <div className="mt-[20px] w-full flex flex-wrap gap-4">
         {categories.map((cat, index) => (
@@ -72,8 +72,8 @@ const Categories: React.FC = () => {
 
               {/* Main Image */}
               <img
-                src={cat.img}
-                alt="Cat"
+                src=''
+                alt="Category Img"
                 className="w-[180px] h-[150px] object-cover"
               />
             </div>

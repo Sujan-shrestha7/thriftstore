@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar";
 import Categories from "./categories";
+import Items from "./items";
 
 const Foods: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("accountOrders");
@@ -42,7 +43,7 @@ const Foods: React.FC = () => {
 
           </nav>
           {/* Divider below sub-header */}
-            <div className="absolute mt-[15px] h-[2px] bg-[#404040] w-[80%]"/>
+            <div className="absolute h-[2px] bg-[#404040] w-[80%]"/>
 
           {/* Tabs Content */}
           <div className="p-4">
@@ -62,7 +63,9 @@ const Foods: React.FC = () => {
               className={`${
                 activeTab === "Payments" ? "block" : "hidden"
               } text-gray-700`}
-            ></div>
+            >
+              <Items/>
+            </div>
             <div
               id="tab-disabled"
               role="tabpanel"
