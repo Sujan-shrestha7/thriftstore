@@ -1,5 +1,4 @@
 import React from "react";
-import Sidebar from "../Navbar";
 
 const rcOrders = () => {
   const startingBillNo = 2389872;

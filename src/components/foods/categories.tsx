@@ -1,10 +1,9 @@
 import React from 'react'
-import Navbar from '../Navbar'
 
-const Categories = () => {
+const Categories:React.FC = () => {
   return (
     <div>
-      <Navbar/>
+      
     </div>
   )
 }

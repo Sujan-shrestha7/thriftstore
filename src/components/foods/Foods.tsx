@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import Sidebar from "../Navbar";
-import Orders from "./AcOrders";
-import Payments from "./Payments";
-import RcOrders from "./acReturned";
+import Navbar from "../Navbar";
+import Categories from "./categories";
 
-const Accounts: React.FC = () => {
+const Foods: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("accountOrders");
 
   return (
-    <div className="">
-      <Sidebar />
+    <div>
+      <Navbar />
       <div className="ml-[300px] items-center justify-center">
-        <p className="mt-[10px] text-[#404040] font-bold text-2xl mb-4">
-          Account & Payments
+        <p className="text-[#404040] font-bold text-2xl mb-4">
+          Foods and Services
         </p>
         <div className="w-full">
           {/* Tabs Navigation */}
@@ -41,18 +39,7 @@ const Accounts: React.FC = () => {
             >
               Payments
             </button>
-            <button
-              className={`w-[180px] h-[45px] text-[18px] hover:text-[#F4F4F4] font-bold text-[#404040] rounded-[5px] hover:bg-[#552177] cursor-pointer ${
-                activeTab === "Returned"
-                  ? "text-white bg-[#552177]"
-                  : "text-gray-600 hover:text-[#F4F4F4]"
-              }`}
-              onClick={() => setActiveTab("Returned")}
-              aria-controls="tab-Returned"
-              role="tab"
-            >
-              Returned
-            </button>
+
             {/* Search Bar */}
             <div className="w-full ml-[400px] max-w-[200px] md:max-w-[250px]">
               <input
@@ -63,6 +50,8 @@ const Accounts: React.FC = () => {
               <button type="submit" className="absolute right-2 top-2"></button>
             </div>
           </nav>
+          {/* Divider below sub-header */}
+            <div className="absolute mt-[15px] h-[2px] bg-[#404040] w-[78%]"/>
 
           {/* Tabs Content */}
           <div className="p-4">
@@ -73,26 +62,16 @@ const Accounts: React.FC = () => {
                 activeTab === "accountOrders" ? "block" : "hidden"
               } text-gray-700`}
             >
-              <Orders />
+              <Categories />
             </div>
+
             <div
               id="tab-Payments"
               role="tabpanel"
               className={`${
                 activeTab === "Payments" ? "block" : "hidden"
               } text-gray-700`}
-            >
-              <Payments />
-            </div>
-            <div
-              id="tab-Returned"
-              role="tabpanel"
-              className={`${
-                activeTab === "Returned" ? "block" : "hidden"
-              } text-gray-700`}
-            >
-              <RcOrders />
-            </div>
+            ></div>
             <div
               id="tab-disabled"
               role="tabpanel"
@@ -105,4 +84,4 @@ const Accounts: React.FC = () => {
   );
 };
 
-export default Accounts;
+export default Foods;

@@ -19,7 +19,7 @@ const Tabs = () => {
   return (
     <div className="">
       <Sidebar />
-      <div className="ml-[300px] mt-[-650px] items-center justify-center">
+      <div className="ml-[300px] items-center justify-center">
         <p className="mt-[10px] ml-[10px] text-[#404040] font-bold text-2xl mb-4">
           Orders
         </p>

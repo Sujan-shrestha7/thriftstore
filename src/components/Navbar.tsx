@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "./images/logo.png";
 import search from "./images/search.png";
 import profile from "./images/profile.png";
 import dashboard from "./images/dashboard.png";
@@ -8,6 +7,7 @@ import order from "./images/order.png";
 import ap from "./images/a&p.png";
 import deliver from "./images/delivered.png";
 import foods from "./images/foods.png";
+import xittologo from '../logo.png';
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -48,9 +48,9 @@ const Sidebar: React.FC = () => {
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* Logo */}
-        <div className="p-4 flex items-center space-x-2">
-          <img src={logo} alt="XittooFood" className="h-10 w-10" />
-          <p className="text-black text-xl font-bold">XittooFood</p>
+        <div className="flex items-center space-x-2">
+          <img src={xittologo} alt="XittooFood" className="h-[80px] w-[180px] mx-[20px]" />
+          {/* <p className="text-black text-xl font-bold">XittooFood</p> */}
         </div>
 
         {/* Menu Items */}
@@ -70,7 +70,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* Main Content Wrapper (Ensures Sidebar doesn't affect layout) */}
-      <div className="flex-1 min-h-screen bg-[#F6F6FE] ml-0 md:ml-[250px]">
+      <div className="flex-1 pt-[15px] bg-[#F6F6FE] ml-0 md:ml-[250px]">
         {/* Header */}
         <div className="bg-white h-[65px] sticky top-0 z-30 flex items-center justify-between px-4 shadow-md">
           {/* Toggle Button */}

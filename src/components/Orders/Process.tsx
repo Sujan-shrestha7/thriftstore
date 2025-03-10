@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import man from "../images/man.png";
-import Sidebar from "../Navbar";
 const Process = () => {
-  const [activeTab, setActiveTab] = useState("orderItem");
-  const [status, setStatus] = useState("NewOrder");
   const [isUpdateVisible, setIsUpdateVisible] = useState(false);
 
   // Toggle the visibility of the update container

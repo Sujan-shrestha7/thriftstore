@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   return (
     <div className="bg-[#F6F6FE]">
       <Sidebar />
-      <p className="hellohome ml-[295px] mt-[-660px] text-[#404040] font-bold text-3xl mb-4">Dashboard</p>
+      <p className="hellohome ml-[295px] text-[#404040] font-bold text-3xl mb-4">Dashboard</p>
       <div className="hellohome ml-[285px] relative flex flex-wrap">
         <div className="extraStatus relative flex flex-wrap gap-4 pt-[0px] pl-[15px] md:w-[880px] md:h-[200px]">
           {dashboardItems.map((item, index) => (

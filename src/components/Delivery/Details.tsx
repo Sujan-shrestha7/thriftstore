@@ -18,7 +18,7 @@ const Details = () => {
   return (
     <div className="">
       <Sidebar/>
-      <div className='ml-[275px] mt-[-650px]'>
+      <div className='ml-[275px]'>
       <p className="ml-[10px] text-[#404040] font-bold text-2xl mb-4">Delivery</p>
       <div className="sticky top-0 bg-[#F6F6FE] flex flex-wrap gap-[22px]">
         <ul className="flex flex-wrap mt-[8px] gap-[15px] text-center ">

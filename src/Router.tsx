@@ -3,7 +3,7 @@ import Details from "./components/Delivery/Details";
 import Home from "./components/Home";
 import Tabs from "./components/Orders/order1";
 import Accounts from "./components/Account & Payments/accountOrders";
-import Categories from "./components/foods/categories";
+import Foods from "./components/foods/Foods";
 
 const Router = () => {
   return (
@@ -15,7 +15,7 @@ const Router = () => {
 <Route path="/A&P" element={<Accounts/>}></Route>
 <Route path="/order" element={<Tabs />}></Route>
 <Route path="/delivery" element={<Details />}></Route>
-<Route path="/foods" element={<Categories />}></Route>
+<Route path="/foods" element={<Foods />}></Route>
  </Routes>
 </BrowserRouter>
     </div>
