@@ -78,7 +78,7 @@ const Categories: React.FC = () => {
               />
             </div>
             <div>
-              <p className="CatName w-[180px] h-[35px] bg-[#FFE6D9] text-[#F17228] text-center ml-[10px] mt-[15px] pt-[5px] rounded-[8px] shadow-lg">
+              <p className="CatName w-[180px] h-[35px] bg-[#FFE6D9] text-[#F17228] text-center ml-[10px] mt-[5px] pt-[5px] rounded-[8px] shadow-lg">
                 {cat.Categories_name}
               </p>
             </div>
