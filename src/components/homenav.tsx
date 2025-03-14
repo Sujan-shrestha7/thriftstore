@@ -1,8 +1,11 @@
 import React from "react";
 import logo from "./images/thrift.png";
 import search from "./images/search.png";
-const Navbar = () => {
-  
+import notification from './images/notification.png'
+import cart from './images/cart.png'
+import profile from './images/profile.png'
+
+const HomeNav = () => {
   return (
     <div>
       <div className="flex justify-between items-center h-[60px] w-[100%] bg-[#fff] px-[100px]">
@@ -23,12 +26,14 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="">
-          <button className="w-[120px] bg-[#400000] h-[40px] rounded-[5px] font-bold text-[#fff] ">Login</button>
+        <div className="flex">
+          <button className="w-[120px] h-[40px] rounded-[5px] font-bold border-none ">Add Products</button>
+          <button className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none "><img src={cart} className="w-[35px] h-[25px]" alt="" /></button>
+          <button className="w-[70px] h-[40px] rounded-[5px] font-bold border-none "><img src={profile} className="w-[40px] h-[35px]" alt="" /></button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default HomeNav;
