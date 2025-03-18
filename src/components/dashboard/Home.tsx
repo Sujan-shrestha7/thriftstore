@@ -2,16 +2,31 @@ import React from "react";
 import HomeNav from "../homenav";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
+import search from "../images/search.png";
 const Home = () => {
   return (
     <div>
       <HomeNav />
       <div>
-        <div className="bg-[#D9D9D9] w-full h-[500px]">
-          <div className="p-[5%]  w-[50%]">
+        <div className="flex bg-[#D9D9D9] px-[90px] gap-[30px] w-full h-[500px]">
+        <div className="py-[5%] px-[13px] w-[50%]">
             <p className=" text-[52px] text-[#8E6969] font-bold">
               Find Your Next Favorite For Less !
             </p>
+          </div>
+        <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
+            {/* Search Bar */}
+            <div className="relative flex flex-wrap gap-[10px]">
+              <input
+                type="text"
+                placeholder="Search here..."
+                className="border-2  w-[320px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+              />
+              <button type="submit" className="absolute right-[250px] top-3">
+                <img src={search} className="h-4 w-4" alt="Search Icon" />
+              </button>
+              <button className="bg-[#8E6969] text-center w-[140px] rounded-[5px] border-gray-400">Search</button>
+            </div>
           </div>
         </div>
         <div>

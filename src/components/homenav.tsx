@@ -1,7 +1,5 @@
-import React from "react";
 import logo from "./images/thrift.png";
 import search from "./images/search.png";
-import notification from './images/notification.png'
 import cart from './images/cart.png'
 import profile from './images/profile.png'
 
