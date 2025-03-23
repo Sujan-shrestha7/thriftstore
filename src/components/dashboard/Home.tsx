@@ -1,4 +1,3 @@
-import React from "react";
 import HomeNav from "../homenav";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
@@ -16,16 +15,16 @@ const Home = () => {
           </div>
         <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
             {/* Search Bar */}
-            <div className="relative flex flex-wrap gap-[10px]">
+            <div className="flex flex-wrap gap-[10px]">
               <input
                 type="text"
                 placeholder="Search here..."
-                className="border-2  w-[320px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="relative border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button type="submit" className="absolute right-[250px] top-3">
                 <img src={search} className="h-4 w-4" alt="Search Icon" />
               </button>
-              <button className="bg-[#8E6969] text-center w-[140px] rounded-[5px] border-gray-400">Search</button>
+              <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">Search</button>
             </div>
           </div>
         </div>
