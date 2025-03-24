@@ -19,7 +19,7 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="relative border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 w-[285px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button type="submit" className="absolute right-[250px] top-3">
                 <img src={search} className="h-4 w-4" alt="Search Icon" />
