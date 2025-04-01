@@ -1,7 +1,10 @@
 import React from "react";
 import logo from "./images/thrift.png";
 import search from "./images/search.png";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const navigate = useNavigate();
   
   return (
     <div>
@@ -24,7 +27,7 @@ const Navbar = () => {
         </div>
 
         <div className="">
-          <button className="w-[120px] bg-[#400000] h-[40px] rounded-[5px] font-bold text-[#fff] ">Login</button>
+          <button onClick={()=> navigate('/login')} className="w-[120px] bg-[#400000] h-[40px] rounded-[5px] font-bold text-[#fff] ">Login</button>
         </div>
       </div>
     </div>
