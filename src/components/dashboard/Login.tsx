@@ -5,7 +5,6 @@ import aboutbg from '../images/about.jpg'
 import { useNavigate} from "react-router-dom";
 
 const Login= () => {
-
   return (
     <div>
       <Navbar />

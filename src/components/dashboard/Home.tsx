@@ -19,7 +19,7 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 w-[300px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">
                 Search
@@ -29,14 +29,30 @@ const Home = () => {
         </div>
         <div>
           <div className="flex gap-[20px] justify-center items-center h-[400px] bg-[#737373]">
-            <div className="flex flex-col ">
+            <div className="flex flex-col ml-[5px]">
               <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] bg-[#]">Name</p>
+              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
+                Name
+              </p>
             </div>
-            <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-            <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-            <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-            <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+            <div className="flex flex-col ml-[5px]">
+              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
+                Name
+              </p>
+            </div>
+            <div className="flex flex-col ml-[5px]">
+              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
+                Name
+              </p>
+            </div>
+            <div className="flex flex-col ml-[5px]">
+              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
+                Name
+              </p>
+            </div>
           </div>
         </div>
         <div className="h-[400px] flex flex-col md:flex-row">

@@ -3,7 +3,6 @@ import { useNavigate} from "react-router-dom";
 import getCookie from "../../csrf_token";
 
 const LoginForm = () => {
-  
   const [contact, setContact] = useState<number | string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
