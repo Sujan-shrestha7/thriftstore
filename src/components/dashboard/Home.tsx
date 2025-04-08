@@ -8,12 +8,12 @@ const Home = () => {
       <HomeNav />
       <div>
         <div className="flex bg-[#D9D9D9] px-[90px] gap-[30px] w-full h-[500px]">
-        <div className="py-[5%] px-[13px] w-[50%]">
+          <div className="py-[5%] px-[13px] w-[50%]">
             <p className=" text-[52px] text-[#8E6969] font-bold">
               Find Your Next Favorite For Less !
             </p>
           </div>
-        <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
+          <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
             {/* Search Bar */}
             <div className="flex flex-wrap gap-[10px]">
               <input
@@ -21,13 +21,18 @@ const Home = () => {
                 placeholder="Search here..."
                 className="border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
-              <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">Search</button>
+              <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">
+                Search
+              </button>
             </div>
           </div>
         </div>
         <div>
           <div className="flex gap-[20px] justify-center items-center h-[400px] bg-[#737373]">
-            <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+            <div className="flex flex-col ">
+              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
+              <p className="w-[200px] h-[30px] bg-[#]">Name</p>
+            </div>
             <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
             <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
             <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
