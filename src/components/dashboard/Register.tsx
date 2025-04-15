@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-// import loginimg from "../images/loginimg.jpg";
-import loginimg from '../images/about.jpg'
+import loginimg from "../images/about.jpg";
 import getCookie from "../../csrf_token";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const Registerform = () => {
+  const [fullname, setFullname] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
   const [contact, setContact] = useState<number | string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -14,18 +15,19 @@ const LoginForm = () => {
 
     const csrftoken = getCookie("csrftoken");
     // Basic validation
-    if (!contact || !password) {
-      alert("Please enter both email and password!");
+    if (!contact || !password || !fullname || !address) {
+      alert("Please fill up all the forms!");
       return;
     }
 
     const formData = {
+      fullname,
+      address,
       contact,
       password,
     };
-
     try {
-      const response = await fetch("http://127.0.0.1:8000/users/login/", {
+      const response = await fetch("http://127.0.0.1:8000/users/register/", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -37,17 +39,15 @@ const LoginForm = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Error response:", errorData);
-        alert(`Error: ${errorData.message || "Invalid credentials"}`);
-        console.log(alert)
+        alert(errorData.contact[0])
+        // alert(`Error: ${errorData.message}`);
+        // console.log(alert);
         return;
       }
 
-      const data= await response.json();
-      console.log("response is",data);
-      console.log("name",data.data.fullname);
-      localStorage.setItem('name',data.data.fullname);
-      alert("Login successful!");
-      navigate("/home");
+      await response.json();
+      alert("Registration successful!");
+      navigate("/login");
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred. Please try again.");
@@ -57,19 +57,38 @@ const LoginForm = () => {
   return (
     <div className="p-[7%] px-[20%]">
       <div className="flex flex-wrap h-[500px] border-2 border-black shadow-xl rounded-lg overflow-hidden">
-        {/* Image Section */}
-        <div className="flex-shrink-0">
-          <img
-            src={loginimg}
-            className="h-full w-[450px] object-cover"
-            alt="Login"
-          />
-        </div>
-
         {/* Form Section */}
-        <div className="flex flex-1 flex-col items-center justify-center bg-gray-100 p-6 gap-[30px]">
+        <div className="flex flex-1 flex-col items-center justify-center bg-gray-100 p-6 gap-[10px]">
           <p className="text-[24px] font-bold">Login Page</p>
-          <div className="flex flex-col gap-[25px]">
+          <div className="flex flex-col gap-[15px]">
+            <label
+              htmlFor="fullname"
+              className="flex flex-col gap-[10px] w-full max-w-[500px]"
+            >
+              <p className="mb-2 text-lg font-medium">Enter Your Full Name:</p>
+              <input
+                type="text"
+                id="fullname"
+                placeholder="Enter Your Full Name"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+                className="w-[300px] h-[35px] border px-[10px] py-2 rounded-[5px] outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </label>
+            <label
+              htmlFor="address"
+              className="flex flex-col gap-[10px] w-full max-w-[500px]"
+            >
+              <p className="mb-2 text-lg font-medium">Enter Your Address:</p>
+              <input
+                type="text"
+                id="address"
+                placeholder="Enter Your Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-[300px] h-[35px] border px-[10px] py-2 rounded-[5px] outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </label>
             <label
               htmlFor="contact"
               className="flex flex-col gap-[15px] w-full max-w-[500px]"
@@ -88,7 +107,7 @@ const LoginForm = () => {
             </label>
             <label
               htmlFor="password"
-              className="flex flex-col gap-[15px] w-full max-w-[500px]"
+              className="flex flex-col gap-[10px] w-full max-w-[500px]"
             >
               <p className="mb-2 text-lg font-medium">Enter Your Password:</p>
               <input
@@ -100,24 +119,26 @@ const LoginForm = () => {
                 className="w-[300px] h-[35px] border px-[10px] py-2 rounded-[5px] outline-none focus:ring-2 focus:ring-blue-400"
               />
             </label>
-            <div className="flex justify-between">
-              <label htmlFor="" className="flex gap-[5px]">
-            <input type="checkbox"/> <p className="text-[16px]">Remember me</p>
-              </label>
-              <p><a href="" className="text-[16px]"> Forgot Password?</a></p>
-            </div>
           </div>
           <button
             onClick={handleSubmit}
             className="h-[32px] w-[130px] bg-[#000000] hover:bg-[#fff] text-[#fff] hover:text-[#000000] rounded-[5px] cursor-pointer"
           >
-            Login
+            Register
           </button>
-          <p>Don't have an Account?<a href="" onClick={() => navigate("/register")}> Sign Up</a></p>
+          <p>Already have an Account?<a href="" onClick={() => navigate("/login")}> Sign In</a></p>
+        </div>
+        {/* Image Section */}
+        <div className="flex-shrink-0">
+          <img
+            src={loginimg}
+            className="h-full w-[450px] object-cover"
+            alt="Register"
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default Registerform;

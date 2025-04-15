@@ -1,12 +1,13 @@
 import logo from "./images/thrift.png";
 import search from "./images/search.png";
-import cart from './images/cart.png'
-import profile from './images/profile.png'
+import cart from "./images/cart.png";
+import profile from "./images/profile.png";
 import StoreHome from "./Store/storeHome";
 import { useNavigate } from "react-router-dom";
 
 const HomeNav = () => {
-const navigate=useNavigate();
+  const navigate = useNavigate();
+  let name = localStorage.getItem("name");
 
   return (
     <div>
@@ -15,7 +16,6 @@ const navigate=useNavigate();
           <img src={logo} className="h-[55px] w-[55px]" alt="" />
           <p className="text-[28px] font-bold">Thrift Store</p>
         </div>
-
         {/* Search Bar */}
         <div className=" relative w-[380px]">
           <input
@@ -29,9 +29,19 @@ const navigate=useNavigate();
         </div>
 
         <div className="flex">
-          <button onClick={()=>navigate('/storedashboard')} className="w-[120px] h-[40px] rounded-[5px] font-bold border-none hover:text-[#8C0000]">Switch to Store</button>
-          <button className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none "><img src={cart} className="w-[35px] h-[25px]" alt="" /></button>
-          <button className="w-[70px] h-[40px] rounded-[5px] font-bold border-none "><img src={profile} className="w-[40px] h-[35px]" alt="" /></button>
+          <button
+            onClick={() => navigate("/storedashboard")}
+            className="w-[120px] h-[40px] rounded-[5px] font-bold border-none hover:text-[#8C0000]"
+          >
+            Switch to Store
+          </button>
+          <button className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
+            <img src={cart} className="w-[35px] h-[25px]" alt="" />
+          </button>
+          <button className="w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
+            <img src={profile} className="w-[40px] h-[35px]" alt="" />
+            {name}
+          </button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import LoginForm from "./components/dashboard/LoginForm";
 import Products from "./components/dashboard/Products";
 import StoreHome from "./components/Store/storeHome";
 import StoreDashboard from "./components/Store/StoreDashboard";
+import Registerform from "./components/dashboard/Register";
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/register" element={<Registerform />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/footer" element={<Footer />}></Route>
           <Route path="/products" element={<Products />}></Route>
