@@ -1,9 +1,10 @@
 import HomeNav from "../homenav";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
+const navigate = useNavigate();
 let name = localStorage.getItem('name');
 
   return (
@@ -32,7 +33,7 @@ let name = localStorage.getItem('name');
         </div>
         <div>
           <div className="flex gap-[20px] justify-center items-center h-[400px] bg-[#737373]">
-            <div className="flex flex-col ml-[5px]">
+            <div onClick={()=>navigate('/products')} className="flex flex-col ml-[5px]">
               <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
               <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
                 Name

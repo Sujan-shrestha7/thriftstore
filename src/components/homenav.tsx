@@ -2,7 +2,7 @@ import logo from "./images/thrift.png";
 import search from "./images/search.png";
 import cart from "./images/cart.png";
 import profile from "./images/profile.png";
-import StoreHome from "./Store/storeHome";
+// import StoreHome from "./Store/storeHome";
 import { useNavigate } from "react-router-dom";
 
 const HomeNav = () => {
@@ -12,7 +12,7 @@ const HomeNav = () => {
   return (
     <div>
       <div className="flex justify-between items-center h-[60px] w-[100%] bg-[#fff] px-[100px]">
-        <div className="ml-[-2%] flex gap-[10px] items-center justify-center">
+        <div onClick={() => navigate("/home")} className="ml-[-2%] flex gap-[10px] items-center justify-center cursor-pointer">
           <img src={logo} className="h-[55px] w-[55px]" alt="" />
           <p className="text-[28px] font-bold">Thrift Store</p>
         </div>

@@ -1,34 +1,65 @@
 import React from "react";
-import Navbar from "../Navbar";
-
+import Navbar from "../homenav";
+import image from '../images/books.jpg'
+import Footer from "../../footer";
 const Products: React.FC = () => {
   const results = [
     {
       name: "Camera",
+      price:"380",
       Location: "Durbarmarg",
-      category:""
+      category:"Electronics"
     },
     {
       name: "Juggers",
+      price:"380",
       Location: "Durbarmarg",
       category:"Chlothes"
     },
     {
       name: "Dell Laptop",
+      price:"380",
       Location: "Durbarmarg",
       category:"Electronics"
     },
     {
       name: "SmartBoard",
+      price:"380",
+      Location: "Banepa buspark, Banepa",
+      category:"Electronics"
+    },
+    {
+      name: "Dell Laptop",
+      price:"380",
+      Location: "Durbarmarg",
+      category:"Electronics"
+    },
+    {
+      name: "SmartBoard",
+      price:"380",
+      Location: "Banepa buspark, Banepa",
+      category:"Electronics"
+    },
+    
+    {
+      name: "Dell Laptop",
+      price:"380",
+      Location: "Durbarmarg",
+      category:"Electronics"
+    },
+    {
+      name: "SmartBoard",
+      price:"380",
       Location: "Banepa buspark, Banepa",
       category:"Electronics"
     }
+    
   ];
 
   return (
     <div className="bg-[#F0F0FF]">
       <Navbar/>
-      <div className="mt-[90px]">
+      <div className="my-[90px]">
         <div className="flex items-center justify-between px-[80px]">
           <p className="text-[28px] font-semibold text-[#473F40]">
             Your Search Results
@@ -41,49 +72,50 @@ const Products: React.FC = () => {
             />
             <input
               type="text"
-              className="searchBox h-[35px] w-[220px] bg-[#F5F3F2] pl-[30px] pr-[10px] rounded-[5px] border-none"
-              placeholder="Search for restaurants, food"
+              className="h-[35px] w-[220px] bg-[#F5F3F2] pl-[30px] pr-[10px] rounded-[5px] border-none"
+              placeholder="Search for products"
             />
-            <button className="searchButton ml-[10px] h-[35px] w-[120px] bg-[#FC6E4F] text-[#fff] text-[15px] border-none rounded-[5px] cursor-pointer">
+            <button className=" ml-[10px] h-[35px] w-[120px] bg-[#FC6E4F] text-[#fff] text-[15px] border-none rounded-[5px] cursor-pointer">
               Search
             </button>
           </div>
         </div>
 
         {/* Divider Line */}
-        <div className="divider h-[2px] mt-[30px] w-[90%] ml-[5%] rounded-[10px] bg-[#FFFFFF] shadow-lg" />
+        <div className="h-[2px] mt-[30px] w-[90%] ml-[5%] rounded-[10px] bg-[#FFFFFF] shadow-lg" />
 
         {/* Search Results */}
-        <div className="pt-[70px] flex flex-wrap gap-x-[25px] gap-y-[50px] ">
+        <div className="mt-[70px] px-[200px] flex flex-wrap gap-[20px] items-center justify-around">
           {results.map((result, index) => (
-            <div key={index} className="items-center justify-around cursor-pointer" >
-              <div className="h-[230px] w-[250px] bg-[#000000] rounded-[30px] relative overflow-hidden">
+            <div key={index} className="" >
+              <div className="cursor-pointer h-[230px] w-[250px] bg-[#000000] rounded-[30px]">
                 <img
-                  src=''
-                  className="h-full w-full object-cover"
+                  src={image}
+                  className="h-full w-full rounded-[5px] object-cover"
                   alt={result.name}
                 />
               </div>
-              <div className="ml-[10px]">
-                <p className="font-bold text-[18px] pt-[15px]">
-                  {result.name} - {result.category}
+              <div className="ml-[10px] text-center">
+                <p className="font-bold text-[18px] pt-[5px]">
+                  {result.name} - {result.price}
                 </p>
-                <div className="pt-[10px] w-full flex gap-[10px]">
+                <div className="text-center w-full flex gap-[10px]">
                   <img
                     src=''
                     className="h-[18px] w-[18px]"
                     alt="Location Icon"
                   />
                   <p className=" font-bold text-[14px]">
-                    {result.Location}
+                    {result.category}-{result.Location}
                   </p>
                 </div>
-                <button className="text-center cursor-pointer w-[90px] h-[25px] rounded-[5px] mt-[-3px]">Add To Cart</button>
+                <button className="mt-[5px] text-center cursor-pointer w-[100px] h-[25px] rounded-[5px] text-[#fff] bg-[#000000]">Add To Cart</button>
               </div>
             </div>
           ))}
         </div>
       </div>
+        <Footer/>
     </div>
   );
 };
