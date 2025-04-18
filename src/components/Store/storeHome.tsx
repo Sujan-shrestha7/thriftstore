@@ -10,8 +10,8 @@ const StoreHome: React.FC = () => {
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
   const menuItems = [
-    { name: "Dashboard", path: "/storedashabord", icon: img },
-    { name: "Products", path: "/products", icon: img },
+    { name: "Dashboard", path: "/storedashboard", icon: img },
+    { name: "Products", path: "/storeproducts", icon: img },
     { name: "Orders", path: "/order", icon: img }
   ];
 

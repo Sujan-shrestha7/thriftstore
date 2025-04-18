@@ -4,7 +4,7 @@ import Footer from "./footer";
 import Login from "./components/dashboard/Login";
 import LoginForm from "./components/dashboard/LoginForm";
 import Products from "./components/dashboard/Products";
-import StoreHome from "./components/Store/storeHome";
+import StoreProducts from "./components/Store/storeProducts";
 import StoreDashboard from "./components/Store/StoreDashboard";
 import Registerform from "./components/dashboard/Register";
 
@@ -19,7 +19,7 @@ const Router = () => {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/footer" element={<Footer />}></Route>
           <Route path="/products" element={<Products />}></Route>
-          {/* <Route path="/storehome" element={<StoreHome />}></Route> */}
+          <Route path="/storeproducts" element={<StoreProducts/>}></Route>
           <Route path="/storedashboard" element={<StoreDashboard />}></Route>
         </Routes>
       </BrowserRouter>
