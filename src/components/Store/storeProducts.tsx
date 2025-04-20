@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StoreHome from "./storeHome";
-import bookImg from "../images/books.jpg"; // Ensure the path is correct
+import bookImg from "../images/books.jpg";
 
 // Product Interface
 interface Product {
@@ -16,6 +16,9 @@ interface Product {
 const StoreProducts: React.FC = () => {
   // States
   const [showForm, setShowForm] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
+
   const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
@@ -48,12 +51,38 @@ const StoreProducts: React.FC = () => {
   // Toggle form visibility
   const toggleForm = () => {
     setShowForm(!showForm);
+    setIsEditMode(false);
+    resetForm();
+  };
+
+  // Reset form
+  const resetForm = () => {
+    setProductName("");
+    setCategoryName("");
+    setPrice("");
+    setDescription("");
+    setUsedTime("");
+    setProductImage(null);
+    setEditId(null);
   };
 
   // Delete product
   const deleteProduct = (id: number) => {
     const updated = products.filter((product) => product.id !== id);
     setProducts(updated);
+  };
+
+  // Start editing a product
+  const handleEdit = (product: Product) => {
+    setShowForm(true);
+    setIsEditMode(true);
+    setEditId(product.id);
+    setProductName(product.product_name);
+    setCategoryName(product.category_name);
+    setPrice(product.price);
+    setDescription(product.description);
+    setUsedTime(product.used_time);
+    setProductImage(product.img || null);
   };
 
   // Handle form submission
@@ -66,7 +95,7 @@ const StoreProducts: React.FC = () => {
     }
 
     const newProduct: Product = {
-      id: products.length + 1,
+      id: isEditMode && editId ? editId : products.length + 1,
       product_name: productName,
       category_name: categoryName,
       price,
@@ -75,16 +104,16 @@ const StoreProducts: React.FC = () => {
       img: productImage,
     };
 
-    setProducts((prev) => [...prev, newProduct]);
+    if (isEditMode && editId !== null) {
+      setProducts((prev) =>
+        prev.map((prod) => (prod.id === editId ? newProduct : prod))
+      );
+    } else {
+      setProducts((prev) => [...prev, newProduct]);
+    }
 
-    // Reset form
-    setProductName("");
-    setCategoryName("");
-    setPrice("");
-    setDescription("");
-    setUsedTime("");
-    setProductImage(null);
-    toggleForm();
+    resetForm();
+    setShowForm(false);
   };
 
   return (
@@ -119,7 +148,7 @@ const StoreProducts: React.FC = () => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="relative h-[300px] w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
+                className="relative h-[340px] w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
               >
                 <button
                   onClick={() => deleteProduct(product.id)}
@@ -141,16 +170,23 @@ const StoreProducts: React.FC = () => {
                   <p><strong>Description:</strong> {product.description}</p>
                   <p><strong>Used Time:</strong> {product.used_time}</p>
                 </div>
+
+                <button
+                  onClick={() => handleEdit(product)}
+                  className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-md text-sm w-full"
+                >
+                  Edit
+                </button>
               </div>
             ))}
           </div>
 
-          {/* Add Product Form */}
+          {/* Add/Edit Product Form */}
           {showForm && (
             <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
               <div className="bg-[#ED935E] w-[500px] p-[40px] rounded-md shadow-lg">
                 <h2 className="text-white text-xl font-bold text-center mb-4">
-                  Add New Product
+                  {isEditMode ? "Edit Product" : "Add New Product"}
                 </h2>
                 <form
                   className="flex flex-col gap-y-[15px]"
@@ -229,7 +265,7 @@ const StoreProducts: React.FC = () => {
                       type="submit"
                       className="bg-green-500 px-4 py-2 w-[120px] rounded-md text-white"
                     >
-                      Add
+                      {isEditMode ? "Update" : "Add"}
                     </button>
                   </div>
                 </form>

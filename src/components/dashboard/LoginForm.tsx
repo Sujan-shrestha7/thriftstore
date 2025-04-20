@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-// import loginimg from "../images/loginimg.jpg";
-import loginimg from '../images/about.jpg'
+import loginimg from '../images/loginimg.jpg'
 import getCookie from "../../csrf_token";
 import { useNavigate } from "react-router-dom";
 
@@ -61,7 +60,7 @@ const LoginForm = () => {
         <div className="flex-shrink-0">
           <img
             src={loginimg}
-            className="h-full w-[450px] object-cover"
+            className="h-full w-[450px] object-cover opacity-80 p-[15px] rounded-[10px]"
             alt="Login"
           />
         </div>

@@ -1,20 +1,60 @@
 import HomeNav from "../homenav";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
+import bookImg from "../images/books.jpg";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-const navigate = useNavigate();
-let name = localStorage.getItem('name');
+  const navigate = useNavigate();
+  const name = localStorage.getItem("name");
+
+  const products = [
+    {
+      id: 1,
+      name: "Harry Potter",
+      category: "Books",
+      price: "Rs. 500",
+      image: bookImg,
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      category: "Electronics",
+      price: "Rs. 2000",
+      image: bookImg,
+    },
+    {
+      id: 3,
+      name: "Denim Jacket",
+      category: "Clothing",
+      price: "Rs. 800",
+      image: bookImg,
+    },
+    {
+      id: 4,
+      name: "Bluetooth Speaker",
+      category: "Electronics",
+      price: "Rs. 1500",
+      image: bookImg,
+    },
+    {
+      id: 5,
+      name: "Study Lamp",
+      category: "Home",
+      price: "Rs. 400",
+      image: bookImg,
+    },
+  ];
 
   return (
     <div>
       <HomeNav />
       <div>
+        {/* Hero Section */}
         <div className="flex bg-[#D9D9D9] px-[90px] gap-[30px] w-full h-[500px]">
           <div className="py-[5%] px-[13px] w-[50%]">
             <p className=" text-[52px] text-[#8E6969] font-bold">
-              Find Your Next Favorite For Less !
+              Find Your Next Favorite For Less!
             </p>
           </div>
           <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
@@ -31,40 +71,35 @@ let name = localStorage.getItem('name');
             </div>
           </div>
         </div>
-        <div>
-          <div className="flex gap-[20px] justify-center items-center h-[400px] bg-[#737373]">
-            <div onClick={()=>navigate('/products')} className="flex flex-col ml-[5px]">
-              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
-                Name
-              </p>
-            </div>
-            <div className="flex flex-col ml-[5px]">
-              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
-                Name
-              </p>
-            </div>
-            <div className="flex flex-col ml-[5px]">
-              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
-                Name
-              </p>
-            </div>
-            <div className="flex flex-col ml-[5px]">
-              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
-                Name
-              </p>
-            </div>
-            <div className="flex flex-col ml-[5px]">
-              <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]"></div>
-              <p className="w-[200px] h-[30px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center rounded-[12px]">
-                Name
-              </p>
-            </div>
+
+        {/* Product Section */}
+        <div className="bg-[#737373] py-10">
+          <h2 className="text-center text-white text-2xl font-bold mb-6">
+            Trending Products
+          </h2>
+          <div className="flex gap-[20px] justify-center items-center flex-wrap">
+            {products.map((product, index) => (
+              <div
+                key={product.id}
+                onClick={index === 0 ? () => navigate("/products") : undefined}
+                className="flex flex-col cursor-pointer hover:scale-105 transition-transform"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-[200px] w-[210px] bg-[#D9D9D9] object-cover rounded-[15px]"
+                />
+                <div className="w-[200px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center py-2 rounded-[12px]">
+                  <p>{product.name}</p>
+                  <p className="text-sm font-normal">{product.category}</p>
+                  <p className="text-sm font-normal">{product.price}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* About Section */}
         <div className="h-[400px] flex flex-col md:flex-row">
           <div className="text-[18px] pt-[100px] text-[#282727] p-[20px] text-center font-bold">
             <p>
