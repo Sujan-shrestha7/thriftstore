@@ -45,7 +45,7 @@ const HomeNav = () => {
           >
             Switch to Store
           </button>
-          <button className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
+          <button onClick={()=> navigate("/cart")} className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
             <img src={cart} className="w-[35px] h-[25px]" alt="" />
           </button>
           <div>

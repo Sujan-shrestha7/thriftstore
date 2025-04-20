@@ -8,6 +8,7 @@ import StoreProducts from "./components/Store/storeProducts";
 import StoreDashboard from "./components/Store/StoreDashboard";
 import Registerform from "./components/dashboard/Register";
 import Order from "./components/Store/Order";
+import Cart from "./components/dashboard/cart";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/footer" element={<Footer />}></Route>
           <Route path="/products" element={<Products />}></Route>
+          <Route path="/cart" element={<Cart/>}></Route>
           <Route path="/storeproducts" element={<StoreProducts/>}></Route>
           <Route path="/storedashboard" element={<StoreDashboard />}></Route>
           <Route path="/order" element={<Order />}></Route>
