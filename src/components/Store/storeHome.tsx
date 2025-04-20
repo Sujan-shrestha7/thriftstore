@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Profiler } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import img from "../images/profile.png";
+import logo from '../images/thrift.png'
 
 const StoreHome: React.FC = () => {
   const navigate = useNavigate();
@@ -48,12 +49,13 @@ const StoreHome: React.FC = () => {
           } md:translate-x-0`}
       >
         {/* Logo */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center mx-[10px]">
           <img
-            src={img}
-            alt="XittooFood"
-            className="h-[80px] w-[180px] mx-[20px]"
+            src={logo}
+            alt="logo"
+            className="h-[60px] w-[60px]"
           />
+          <p className="font-bold text-[24px]">Thrift Store</p>
         </div>
 
         {/* Menu Items */}

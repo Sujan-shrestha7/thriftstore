@@ -7,6 +7,7 @@ import Products from "./components/dashboard/Products";
 import StoreProducts from "./components/Store/storeProducts";
 import StoreDashboard from "./components/Store/StoreDashboard";
 import Registerform from "./components/dashboard/Register";
+import Order from "./components/Store/Order";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path="/products" element={<Products />}></Route>
           <Route path="/storeproducts" element={<StoreProducts/>}></Route>
           <Route path="/storedashboard" element={<StoreDashboard />}></Route>
+          <Route path="/order" element={<Order />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,9 +1,5 @@
 import React from 'react';
-// import order from './images/order.png';
-// import process from './images/process.png';
-// import returned from './images/return.png';
-// import delivered from './images/delivered.png';
-// import './Navbar.css';
+
 import StoreHome from './storeHome';
 interface DashboardItem {
   // img: string;
