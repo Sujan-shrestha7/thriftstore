@@ -1,55 +1,89 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import StoreHome from "./storeHome";
-import bookImg from "../images/books.jpg"; // Make sure this path is correct
+import bookImg from "../images/books.jpg"; // Ensure the path is correct
 
-// Category Interface
-interface Category {
+// Product Interface
+interface Product {
   id: number;
-  cat_name: string;
+  product_name: string;
+  category_name: string;
+  price: string;
+  description: string;
+  used_time: string;
   img?: string;
 }
 
 const StoreProducts: React.FC = () => {
   // States
   const [showForm, setShowForm] = useState(false);
-  const [newCategoryName, setNewCategoryName] = useState("");
-  const [newCategoryImage, setNewCategoryImage] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([
-    { id: 1, cat_name: "Books", img: bookImg },
-    { id: 2, cat_name: "Electronics", img: bookImg },
-    { id: 3, cat_name: "Clothes", img: bookImg },
-    { id: 4, cat_name: "Shoes", img: bookImg },
+  const [products, setProducts] = useState<Product[]>([
+    {
+      id: 1,
+      product_name: "Harry Potter",
+      category_name: "Books",
+      price: "500",
+      description: "Fantasy Novel",
+      used_time: "2 years",
+      img: bookImg,
+    },
+    {
+      id: 2,
+      product_name: "Smart Watch",
+      category_name: "Electronics",
+      price: "2000",
+      description: "Used smart watch with charger",
+      used_time: "6 months",
+      img: bookImg,
+    },
   ]);
+
+  // Form Fields
+  const [productName, setProductName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [usedTime, setUsedTime] = useState("");
+  const [productImage, setProductImage] = useState<string | null>(null);
 
   // Toggle form visibility
   const toggleForm = () => {
     setShowForm(!showForm);
   };
 
-  // Delete category
-  const deleteCategory = (id: number) => {
-    const updated = categories.filter((cat) => cat.id !== id);
-    setCategories(updated);
+  // Delete product
+  const deleteProduct = (id: number) => {
+    const updated = products.filter((product) => product.id !== id);
+    setProducts(updated);
   };
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!newCategoryName || !newCategoryImage) {
-      alert("Please enter name and select an image.");
+    if (!productName || !categoryName || !price || !description || !usedTime || !productImage) {
+      alert("Please fill all fields and upload an image.");
       return;
     }
 
-    const newCategory: Category = {
-      id: categories.length + 1,
-      cat_name: newCategoryName,
-      img: newCategoryImage,
+    const newProduct: Product = {
+      id: products.length + 1,
+      product_name: productName,
+      category_name: categoryName,
+      price,
+      description,
+      used_time: usedTime,
+      img: productImage,
     };
 
-    setCategories((prev) => [...prev, newCategory]);
-    setNewCategoryName("");
-    setNewCategoryImage(null);
+    setProducts((prev) => [...prev, newProduct]);
+
+    // Reset form
+    setProductName("");
+    setCategoryName("");
+    setPrice("");
+    setDescription("");
+    setUsedTime("");
+    setProductImage(null);
     toggleForm();
   };
 
@@ -65,7 +99,7 @@ const StoreProducts: React.FC = () => {
             <div className="w-full max-w-[250px]">
               <input
                 type="text"
-                placeholder="Search categories..."
+                placeholder="Search products..."
                 className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-5 pr-10 rounded-md w-full"
               />
             </div>
@@ -80,60 +114,83 @@ const StoreProducts: React.FC = () => {
           {/* Divider */}
           <div className="absolute h-[1px] mt-[5px] ml-[-12px] bg-[#404040] w-[80%]" />
 
-          {/* Category Cards */}
+          {/* Product Cards */}
           <div className="mt-[20px] w-full flex flex-wrap gap-4">
-            {categories.map((cat) => (
+            {products.map((product) => (
               <div
-                key={cat.id}
-                className="relative h-[180px] w-[210px] bg-black rounded-[10px] overflow-hidden"
+                key={product.id}
+                className="relative h-[300px] w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
               >
-                {/* Remove Button */}
                 <button
-                  onClick={() => deleteCategory(cat.id)}
+                  onClick={() => deleteProduct(product.id)}
                   className="absolute top-2 right-2 text-white bg-red-600 rounded-full w-7 h-7 flex items-center justify-center"
                 >
                   ×
                 </button>
 
-                {/* Category Image */}
                 <img
-                  src={cat.img}
-                  alt={cat.cat_name}
-                  className="w-[180px] h-[150px] object-cover mx-auto"
+                  src={product.img}
+                  alt={product.product_name}
+                  className="w-full h-[120px] object-cover rounded-md"
                 />
 
-                {/* Category Name */}
-                <p className="w-full h-[35px] bg-[#FFC9AB] text-[#F17228] font-bold text-center pt-[5px] rounded-[8px] shadow-lg">
-                  {cat.cat_name}
-                </p>
+                <div className="mt-2 text-white text-sm space-y-1">
+                  <p><strong>Name:</strong> {product.product_name}</p>
+                  <p><strong>Category:</strong> {product.category_name}</p>
+                  <p><strong>Price:</strong> Rs. {product.price}</p>
+                  <p><strong>Description:</strong> {product.description}</p>
+                  <p><strong>Used Time:</strong> {product.used_time}</p>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Add Category Form */}
+          {/* Add Product Form */}
           {showForm && (
             <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
               <div className="bg-[#ED935E] w-[500px] p-[40px] rounded-md shadow-lg">
                 <h2 className="text-white text-xl font-bold text-center mb-4">
-                  Add New Products
+                  Add New Product
                 </h2>
                 <form
                   className="flex flex-col gap-y-[15px]"
                   onSubmit={handleSubmit}
                 >
-                  {/* Category Name Input */}
-                  <div>
-                    <label className="text-white">Category Name:</label>
-                    <input
-                      type="text"
-                      value={newCategoryName}
-                      onChange={(e) => setNewCategoryName(e.target.value)}
-                      className="w-full p-2 mt-1 rounded-md text-black"
-                      placeholder="Enter category name"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                    placeholder="Product Name"
+                    className="p-2 rounded-md"
+                  />
+                  <input
+                    type="text"
+                    value={categoryName}
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    placeholder="Category Name"
+                    className="p-2 rounded-md"
+                  />
+                  <input
+                    type="text"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    placeholder="Price (Rs.)"
+                    className="p-2 rounded-md"
+                  />
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Description"
+                    className="p-2 rounded-md"
+                  />
+                  <input
+                    type="text"
+                    value={usedTime}
+                    onChange={(e) => setUsedTime(e.target.value)}
+                    placeholder="Used Time (e.g., 2 months)"
+                    className="p-2 rounded-md"
+                  />
 
-                  {/* Image Upload */}
                   <div>
                     <label className="text-white">Upload Image:</label>
                     <input
@@ -144,23 +201,22 @@ const StoreProducts: React.FC = () => {
                         if (file) {
                           const reader = new FileReader();
                           reader.onloadend = () => {
-                            setNewCategoryImage(reader.result as string);
+                            setProductImage(reader.result as string);
                           };
                           reader.readAsDataURL(file);
                         }
                       }}
                       className="mt-1 text-white"
                     />
-                    {newCategoryImage && (
+                    {productImage && (
                       <img
-                        src={newCategoryImage}
+                        src={productImage}
                         alt="Preview"
                         className="mt-2 w-full h-[100px] object-cover rounded-md"
                       />
                     )}
                   </div>
 
-                  {/* Form Buttons */}
                   <div className="flex justify-between mt-4">
                     <button
                       type="button"

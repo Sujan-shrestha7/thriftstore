@@ -9,6 +9,7 @@ const StoreHome: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [activeItem, setActiveItem] = useState<string>("Dashboard");
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+  let name = localStorage.getItem('name')
 
   const menuItems = [
     { name: "Dashboard", path: "/storedashboard", icon: img },
@@ -127,14 +128,14 @@ const StoreHome: React.FC = () => {
                 className="h-8 w-8 md:h-10 md:w-10 rounded-full"
               />
               <p className="text-gray-700 font-bold hidden md:block">
-                Admin Kumar
+                {name}
               </p>
             </div>
 
             {/* Profile Dropdown */}
             {showProfileMenu && (
               <div className="absolute right-0 mt-2 w-[200px] h-[250px] bg-[#636363]  rounded-md shadow-lg p-4 text-white">
-                <p className="text-center font-bold">Admin Kumar</p>
+                <p className="text-center font-bold">{name}</p>
                 <hr className="my-2 border-gray-500" />
                 <ul>
                   <li className="p-2 cursor-pointer hover:bg-gray-700 hover:rounded-[5px] text-center">
