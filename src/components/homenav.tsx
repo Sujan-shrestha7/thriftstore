@@ -4,15 +4,25 @@ import cart from "./images/cart.png";
 import profile from "./images/profile.png";
 // import StoreHome from "./Store/storeHome";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const HomeNav = () => {
+  const [profilemenu, setProfilemenu] = useState<boolean>(false);
+
   const navigate = useNavigate();
   let name = localStorage.getItem("name");
+
+  const tooggleprofilemenu = () => {
+    setProfilemenu(!profilemenu);
+  };
 
   return (
     <div>
       <div className="flex justify-between items-center h-[60px] w-[100%] bg-[#fff] px-[100px]">
-        <div onClick={() => navigate("/home")} className="ml-[-2%] flex gap-[10px] items-center justify-center cursor-pointer">
+        <div
+          onClick={() => navigate("/home")}
+          className="ml-[-2%] flex gap-[10px] items-center justify-center cursor-pointer"
+        >
           <img src={logo} className="h-[55px] w-[55px]" alt="" />
           <p className="text-[28px] font-bold">Thrift Store</p>
         </div>
@@ -38,10 +48,25 @@ const HomeNav = () => {
           <button className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
             <img src={cart} className="w-[35px] h-[25px]" alt="" />
           </button>
-          <button className="w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
-            <img src={profile} className="w-[40px] h-[35px]" alt="" />
-            {/* {name} */}
-          </button>
+          <div>
+            <button
+              onClick={tooggleprofilemenu}
+              className="w-[70px] h-[40px] rounded-[5px] font-bold border-none "
+            >
+              <img src={profile} className="w-[40px] h-[35px]" alt="" />
+              {/* {name} */}
+            </button>
+            {profilemenu && (
+              // <div className="fixed inset-0 flex bg-black bg-opacity-50">
+              <div className="absolute items-center justify-center right-4 h-[250px] w-[180px] bg-[#B4B2B2] rounded-[5px]">
+                <p>{name}</p>
+                <button className="bg-[#312E2E] text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
+                  Logout
+                </button>
+              </div>
+              // </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

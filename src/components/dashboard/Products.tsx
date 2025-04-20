@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../homenav";
 import image from '../images/books.jpg'
 import Footer from "../../footer";
+import location from '../images/location.png'
 const Products: React.FC = () => {
   const results = [
     {
@@ -101,7 +102,7 @@ const Products: React.FC = () => {
                 </p>
                 <div className="text-center w-full flex gap-[10px]">
                   <img
-                    src=''
+                    src={location}
                     className="h-[18px] w-[18px]"
                     alt="Location Icon"
                   />
