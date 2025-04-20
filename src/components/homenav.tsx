@@ -40,7 +40,7 @@ const HomeNav = () => {
           </button>
           <button className="w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
             <img src={profile} className="w-[40px] h-[35px]" alt="" />
-            {name}
+            {/* {name} */}
           </button>
         </div>
       </div>

@@ -55,8 +55,8 @@ const Registerform = () => {
   };
 
   return (
-    <div className="p-[7%] px-[20%]">
-      <div className="flex flex-wrap h-[500px] border-2 border-black shadow-xl rounded-lg overflow-hidden">
+    <div className="p-[5%] px-[20%]">
+      <div className="flex flex-wrap h-[600px] border-2 border-black shadow-xl rounded-lg overflow-hidden">
         {/* Form Section */}
         <div className="flex flex-1 flex-col items-center justify-center bg-gray-100 p-6 gap-[10px]">
           <p className="text-[24px] font-bold">Login Page</p>
@@ -126,7 +126,7 @@ const Registerform = () => {
           >
             Register
           </button>
-          <p>Already have an Account?<a href="" onClick={() => navigate("/login")}> Sign In</a></p>
+          <p>Already have an Account?<a href="" onClick={() => navigate("/login")} className="font-bold"> Sign In</a></p>
         </div>
         {/* Image Section */}
         <div className="flex-shrink-0">

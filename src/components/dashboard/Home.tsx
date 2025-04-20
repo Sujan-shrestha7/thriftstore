@@ -23,7 +23,7 @@ let name = localStorage.getItem('name');
               <input
                 type="text"
                 placeholder="Search here..."
-                className="border-2 w-[300px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 w-[290px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">
                 Search
