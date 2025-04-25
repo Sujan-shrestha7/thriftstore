@@ -3,9 +3,11 @@ import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
 import bookImg from "../images/books.jpg";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect} from "react";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [product, setProducts] = useState<string>('');
   const name = localStorage.getItem("name");
 
   const products = [
@@ -45,6 +47,18 @@ const Home = () => {
       image: bookImg,
     },
   ];
+const fetchProducts = async (): Promise<void> =>{
+  try{
+    const response = await fetch('http://127.0.0.1:8000/products/products/');
+    const data = await response.json();
+    setProducts(data);
+  }catch (error) {
+    console.log("Failed to fetch books:", error);
+  }
+}
+useEffect(() => {
+  fetchProducts();
+}, []);
 
   return (
     <div>

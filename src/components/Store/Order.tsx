@@ -93,16 +93,6 @@ const Order = () => {
             <div className="w-[180px] h-[45px] text-[18px]">
               Rs. {totalAmount}
             </div>
-            <div className="h-[15px] w-[110px] cursor-pointer rounded-[5px] mb-[45px] text-[#404040]">
-              <a
-                href=""
-                target="_blank"
-                rel="noopener noreferrer"
-                className=" block w-full h-full text-center pt-[5px]"
-              >
-                Proceed To Pay
-              </a>
-            </div>
           </div>
         </div>
       </div>
