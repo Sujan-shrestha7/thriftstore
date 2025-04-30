@@ -45,6 +45,7 @@ const LoginForm = () => {
       console.log("response is",data);
       console.log("name",data.data.fullname);
       localStorage.setItem('name',data.data.fullname);
+      localStorage.setItem('id',data.data.id);
       alert("Login successful!");
       navigate("/home");
     } catch (error) {

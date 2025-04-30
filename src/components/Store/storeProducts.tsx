@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StoreHome from "./storeHome";
-import getCookie from "../../csrf_token";
+// import getCookie from "../../csrf_token";
 
 interface Product {
   id: number;
@@ -9,7 +9,7 @@ interface Product {
   price: string;
   description: string;
   usedtime: string;
-  img?: string;
+  image?: string;
 }
 
 const StoreProducts: React.FC = () => {
@@ -17,20 +17,21 @@ const StoreProducts: React.FC = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
-
   const [productName, setProductName] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [usedTime, setUsedTime] = useState("");
-  const [productImage, setProductImage] = useState<string | null>(null);
-  const userid = localStorage.getItem('id');
+  const [productImage, setProductImage] = useState<File | null>(null);
+  const userid = localStorage.getItem("id");
 
   // Fetch existing products from backend
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/products/products/");
+        const response = await fetch(
+          "http://127.0.0.1:8000/products/products/"
+        );
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -42,7 +43,6 @@ const StoreProducts: React.FC = () => {
 
   const SubmitProducts = async (e: React.FormEvent) => {
     e.preventDefault();
-    const csrftoken = getCookie("csrftoken");
 
     if (!productName || !categoryName || !usedTime || !userid) {
       alert("Please fill all required fields!");
@@ -50,22 +50,22 @@ const StoreProducts: React.FC = () => {
     }
 
     const formData = new FormData();
-      formData.append("name", productName);
-      formData.append("category",categoryName);
-      formData.append("price", price);
-      formData.append("usedtime", usedTime);
-      formData.append("description", description);
-      formData.append("userid", userid || "");
+    formData.append("name", productName);
+    formData.append("category", categoryName);
+    formData.append("price", price);
+    formData.append("usedtime", usedTime);
+    formData.append("description", description);
+    formData.append("userid", userid || "");
+    formData.append("image", productImage || "");
 
-      try {
-      const response = await fetch("http://127.0.0.1:8000/products/products/create/", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrftoken ?? "",
-        },
-      });
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/products/products/create/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await response.json();
 
@@ -85,6 +85,11 @@ const StoreProducts: React.FC = () => {
     }
   };
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setProductImage(event.target.files[0]);
+    }
+  };
   const toggleForm = () => {
     setShowForm(!showForm);
     setIsEditMode(false);
@@ -132,17 +137,27 @@ const StoreProducts: React.FC = () => {
                 className="relative h-[340px] w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
               >
                 <img
-                  src={product.img || "https://via.placeholder.com/230x120"}
-                  alt={product.name}
-                  className="w-full h-[120px] object-cover rounded-md"
+                src={`http://127.0.0.1:8000//${product.image}`}
+                  alt="hello"
+                  className="w-full h-[150px] object-cover rounded-md"
                 />
 
                 <div className="mt-2 text-white text-sm space-y-1">
-                  <p><strong>Name:</strong> {product.name}</p>
-                  <p><strong>Category:</strong> {product.category}</p>
-                  <p><strong>Price:</strong> Rs. {product.price}</p>
-                  <p><strong>Description:</strong> {product.description}</p>
-                  <p><strong>Used Time:</strong> {product.usedtime}</p>
+                  <p>
+                    <strong>Name:</strong> {product.name}
+                  </p>
+                  <p>
+                    <strong>Category:</strong> {product.category}
+                  </p>
+                  <p>
+                    <strong>Price:</strong> Rs. {product.price}
+                  </p>
+                  <p>
+                    <strong>Description:</strong> {product.description}
+                  </p>
+                  <p>
+                    <strong>Used Time:</strong> {product.usedtime}
+                  </p>
                 </div>
               </div>
             ))}
@@ -194,25 +209,18 @@ const StoreProducts: React.FC = () => {
                   />
 
                   <div>
-                    <label className="text-white">Upload Image (optional):</label>
+                    <label className="text-white">
+                      Upload Image (optional):
+                    </label>
                     <input
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            setProductImage(reader.result as string);
-                          };
-                          reader.readAsDataURL(file);
-                        }
-                      }}
+                      onChange={handleImageUpload}
                       className="mt-1 text-white"
                     />
                     {productImage && (
                       <img
-                        src={productImage}
+                        src={URL.createObjectURL(productImage)}
                         alt="Preview"
                         className="mt-2 w-full h-[100px] object-cover rounded-md"
                       />
