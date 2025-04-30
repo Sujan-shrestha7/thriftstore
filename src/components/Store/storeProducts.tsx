@@ -24,7 +24,7 @@ const StoreProducts: React.FC = () => {
   const [description, setDescription] = useState("");
   const [usedTime, setUsedTime] = useState("");
   const [productImage, setProductImage] = useState<string | null>(null);
-  const userid = 6;
+  const userid = localStorage.getItem('id');
 
   // Fetch existing products from backend
   useEffect(() => {
@@ -49,16 +49,15 @@ const StoreProducts: React.FC = () => {
       return;
     }
 
-    const formData = {
-      name: productName,
-      category: categoryName,
-      price,
-      usedtime: usedTime,
-      description,
-      userid,
-    };
+    const formData = new FormData();
+      formData.append("name", productName);
+      formData.append("category",categoryName);
+      formData.append("price", price);
+      formData.append("usedtime", usedTime);
+      formData.append("description", description);
+      formData.append("userid", userid || "");
 
-    try {
+      try {
       const response = await fetch("http://127.0.0.1:8000/products/products/create/", {
         method: "POST",
         body: JSON.stringify(formData),
