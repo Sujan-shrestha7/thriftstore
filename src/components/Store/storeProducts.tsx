@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import StoreHome from "./storeHome";
+import remove from "../images/remove.png";
 // import getCookie from "../../csrf_token";
+import axios from "axios";
 
 interface Product {
   id: number;
@@ -84,7 +86,15 @@ const StoreProducts: React.FC = () => {
       alert("An error occurred. Please try again.");
     }
   };
-
+  const deleteProduct = async (pk: number): Promise<void> => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/products/products/${pk}/`);
+      setProducts((prev) => prev.filter((product) => product.id !== pk));
+    } catch (error) {
+      console.log("Delete error:", error);
+    }
+  };
+  
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setProductImage(event.target.files[0]);
@@ -134,14 +144,21 @@ const StoreProducts: React.FC = () => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="relative h-[340px] w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
+                className="relative h-auto w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
               >
-                <img
-                src={`http://127.0.0.1:8000//${product.image}`}
-                  alt="hello"
-                  className="w-full h-[150px] object-cover rounded-md"
-                />
-
+                <div>
+                    <img
+                      src={remove}
+                      onClick={() => deleteProduct(product.id)}
+                      className="ml-[183px] mt-[2px] bg-[#fff] rounded-[100%] absolute h-[30px] w-[30px] cursor-pointer"
+                      alt=""
+                    />
+                  <img
+                    src={`http://127.0.0.1:8000//${product.image}`}
+                    alt="hello"
+                    className="w-full h-[150px] object-cover rounded-md"
+                  />
+                </div>
                 <div className="mt-2 text-white text-sm space-y-1">
                   <p>
                     <strong>Name:</strong> {product.name}
