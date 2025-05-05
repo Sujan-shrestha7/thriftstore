@@ -7,27 +7,47 @@ import axios from "axios";
 interface Product {
   id: number;
   name: string;
-  category: string;
+  category: Category;
+  cat_name: string;
   price: string;
   description: string;
   usedtime: string;
   image?: string;
 }
+interface Category {
+  id: number;
+  cat_name: string;
+}
 
 const StoreProducts: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [editId, setEditId] = useState<number | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [category, setCategory] = useState<number>();
   const [productName, setProductName] = useState("");
-  const [categoryName, setCategoryName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [usedTime, setUsedTime] = useState("");
   const [productImage, setProductImage] = useState<File | null>(null);
   const userid = localStorage.getItem("id");
+  // const csrftoken = getCookie("csrftoken");
 
-  // Fetch existing products from backend
+  useEffect(() => {
+    const fetchCategory = async (): Promise<void> => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/category/category/`
+        );
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.log("Failed to fetch foods:", error);
+      }
+    };
+    fetchCategory();
+  });
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -46,14 +66,14 @@ const StoreProducts: React.FC = () => {
   const SubmitProducts = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!productName || !categoryName || !usedTime || !userid) {
+    if (!productName || !category || !usedTime || !userid) {
       alert("Please fill all required fields!");
       return;
     }
 
     const formData = new FormData();
     formData.append("name", productName);
-    formData.append("category", categoryName);
+    formData.append("category", category.toString());
     formData.append("price", price);
     formData.append("usedtime", usedTime);
     formData.append("description", description);
@@ -88,13 +108,13 @@ const StoreProducts: React.FC = () => {
   };
   const deleteProduct = async (pk: number): Promise<void> => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/products/products/${pk}/`);
+      await axios.delete(`http://127.0.0.1:8000/products/products/${pk}`);
       setProducts((prev) => prev.filter((product) => product.id !== pk));
     } catch (error) {
       console.log("Delete error:", error);
     }
   };
-  
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setProductImage(event.target.files[0]);
@@ -108,12 +128,11 @@ const StoreProducts: React.FC = () => {
 
   const resetForm = () => {
     setProductName("");
-    setCategoryName("");
+    setCategory;
     setPrice("");
     setDescription("");
     setUsedTime("");
     setProductImage(null);
-    setEditId(null);
   };
 
   return (
@@ -141,18 +160,18 @@ const StoreProducts: React.FC = () => {
           <div className="absolute h-[1px] mt-[5px] ml-[-12px] bg-[#404040] w-[80%]" />
 
           <div className="mt-[20px] w-full flex flex-wrap gap-4">
-            {products.map((product) => (
+            {products.map((product, index) => (
               <div
-                key={product.id}
+                key={index}
                 className="relative h-auto w-[230px] bg-black rounded-[10px] overflow-hidden p-2"
               >
                 <div>
-                    <img
-                      src={remove}
-                      onClick={() => deleteProduct(product.id)}
-                      className="ml-[183px] mt-[2px] bg-[#fff] rounded-[100%] absolute h-[30px] w-[30px] cursor-pointer"
-                      alt=""
-                    />
+                  <img
+                    src={remove}
+                    onClick={() => deleteProduct(product.id)}
+                    className="ml-[183px] mt-[2px] bg-[#fff] rounded-[100%] absolute h-[30px] w-[30px] cursor-pointer"
+                    alt=""
+                  />
                   <img
                     src={`http://127.0.0.1:8000//${product.image}`}
                     alt="hello"
@@ -161,10 +180,11 @@ const StoreProducts: React.FC = () => {
                 </div>
                 <div className="mt-2 text-white text-sm space-y-1">
                   <p>
-                    <strong>Name:</strong> {product.name}
+                    <strong>Name:</strong>
+                    {product.name}
                   </p>
                   <p>
-                    <strong>Category:</strong> {product.category}
+                    <strong>Category:</strong> {product.cat_name}
                   </p>
                   <p>
                     <strong>Price:</strong> Rs. {product.price}
@@ -197,13 +217,24 @@ const StoreProducts: React.FC = () => {
                     placeholder="Product Name"
                     className="p-2 rounded-md"
                   />
-                  <input
-                    type="text"
-                    value={categoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
-                    placeholder="Category Name"
-                    className="p-2 rounded-md"
-                  />
+                  <div className="mb-4">
+                    <select
+                      className="border border-black h-[35px] rounded-[5px] p-[10px]"
+                      name="foodCategory"
+                      value={category}
+                      onChange={(e) => setCategory(Number(e.target.value))}
+                    >
+                      <option value="" disabled>
+                        Select Category
+                      </option>
+                      {categories.map((f) => (
+                        <option key={f.id} value={f.id}>
+                          {f.cat_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   <input
                     type="text"
                     value={price}
@@ -256,7 +287,7 @@ const StoreProducts: React.FC = () => {
                       type="submit"
                       className="bg-green-500 px-4 py-2 w-[120px] rounded-md text-white"
                     >
-                      {isEditMode ? "Update" : "Add"}
+                      Add
                     </button>
                   </div>
                 </form>

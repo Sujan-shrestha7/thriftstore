@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Profiler } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import img from "../images/profile.png";
-import logo from '../images/thrift.png'
+import logo from "../images/thrift.png";
 
 const StoreHome: React.FC = () => {
   const navigate = useNavigate();
@@ -9,12 +9,12 @@ const StoreHome: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [activeItem, setActiveItem] = useState<string>("Dashboard");
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
-  let name = localStorage.getItem('name')
+  let name = localStorage.getItem("name");
 
   const menuItems = [
     { name: "Dashboard", path: "/storedashboard", icon: img },
     { name: "Products", path: "/storeproducts", icon: img },
-    { name: "Orders", path: "/order", icon: img }
+    { name: "Orders", path: "/order", icon: img },
   ];
 
   useEffect(() => {
@@ -51,11 +51,7 @@ const StoreHome: React.FC = () => {
       >
         {/* Logo */}
         <div className="flex items-center mx-[10px]">
-          <img
-            src={logo}
-            alt="logo"
-            className="h-[60px] w-[60px]"
-          />
+          <img src={logo} alt="logo" className="h-[60px] w-[60px]" />
           <p className="font-bold text-[24px]">Thrift Store</p>
         </div>
 
@@ -114,7 +110,12 @@ const StoreHome: React.FC = () => {
           </div>
 
           <div>
-            <p onClick={()=>navigate('/home')} className="w-[120px] h-[40px] rounded-[5px] mt-[10px] font-bold border-none hover:text-[#8C0000] cursor-pointer">Swich to User</p>
+            <p
+              onClick={() => navigate("/home")}
+              className="w-[120px] h-[40px] rounded-[5px] mt-[10px] font-bold border-none hover:text-[#8C0000] cursor-pointer"
+            >
+              Swich to User
+            </p>
           </div>
           {/* Profile Section with Dropdown */}
           <div className="relative">
@@ -127,9 +128,7 @@ const StoreHome: React.FC = () => {
                 alt="Profile"
                 className="h-8 w-8 md:h-10 md:w-10 rounded-full"
               />
-              <p className="text-gray-700 font-bold hidden md:block">
-                {name}
-              </p>
+              <p className="text-gray-700 font-bold hidden md:block">{name}</p>
             </div>
 
             {/* Profile Dropdown */}
@@ -144,7 +143,13 @@ const StoreHome: React.FC = () => {
                   <li className="p-2 cursor-pointer hover:bg-gray-700 hover:rounded-[5px] text-center">
                     Settings
                   </li>
-                  <li className="p-2 cursor-pointer hover:bg-gray-700 hover:rounded-[5px] text-center">
+                  <li
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate("/login");
+                    }}
+                    className="p-2 cursor-pointer hover:bg-gray-700 hover:rounded-[5px] text-center"
+                  >
                     Logout
                   </li>
                 </ul>
