@@ -1,16 +1,42 @@
-import React, { useState } from "react";
 import Navbar from "../homenav";
 import image from "../images/books.jpg";
 import Footer from "../../footer";
 import location from "../images/location.png";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+interface Product {
+  id: number;
+  name: string;
+  category: Category;
+  cat_name: string;
+  price: string;
+  description: string;
+  usedtime: string;
+  image?: string;
+  users: Users;
+  address: string;
+}
+
+interface Users{
+  id:number;
+  address: string;
+}
+
+interface Category {
+  id: number;
+  cat_name: string;
+}
 
 const Products: React.FC = () => {
   const [selectedProductIndex, setSelectedProductIndex] = useState<number | null>(null);
-  const navigate=useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
   const toggleForm = (index: number) => {
     // Toggle off if clicking same product again
-    setSelectedProductIndex(prevIndex => (prevIndex === index ? null : index));
+    setSelectedProductIndex((prevIndex) =>
+      prevIndex === index ? null : index
+    );
   };
 
   const results = [
@@ -72,6 +98,21 @@ const Products: React.FC = () => {
     },
   ];
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/products/products/"
+        );
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   return (
     <div className="bg-[#F0F0FF] min-h-screen">
       <Navbar />
@@ -102,7 +143,7 @@ const Products: React.FC = () => {
 
         {/* Search Results */}
         <div className="mt-[70px] px-[200px] flex flex-wrap gap-[20px] items-center justify-around relative">
-          {results.map((result, index) => (
+          {products.map((result, index) => (
             <div key={index} className="relative">
               <div onClick={() => toggleForm(index)} className="">
                 <div className="cursor-pointer h-[230px] w-[250px] bg-[#000000] rounded-[30px] overflow-hidden">
@@ -123,10 +164,13 @@ const Products: React.FC = () => {
                       alt="Location Icon"
                     />
                     <p className="font-bold text-[14px]">
-                      {result.category} - {result.Location}
+                      {result.address}
                     </p>
                   </div>
-                  <button onClick={()=>navigate('/cart')} className="mt-[5px] text-center cursor-pointer w-[100px] h-[25px] rounded-[5px] text-[#fff] bg-[#000000]">
+                  <button
+                    onClick={() => navigate("/cart")}
+                    className="mt-[5px] text-center cursor-pointer w-[100px] h-[25px] rounded-[5px] text-[#fff] bg-[#000000]"
+                  >
                     Add To Cart
                   </button>
                 </div>
