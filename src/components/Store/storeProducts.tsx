@@ -108,7 +108,7 @@ const StoreProducts: React.FC = () => {
   };
   const deleteProduct = async (pk: number): Promise<void> => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/products/products/${pk}`);
+      await axios.delete(`http://127.0.0.1:8000/products/products/${pk}/`);
       setProducts((prev) => prev.filter((product) => product.id !== pk));
     } catch (error) {
       console.log("Delete error:", error);

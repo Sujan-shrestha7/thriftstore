@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import getCookie from "../../csrf_token";
 
-// Interfaces
 interface Product {
   id: number;
   name: string;

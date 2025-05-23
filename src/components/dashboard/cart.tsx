@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../homenav";
 import Footer from "../../footer";
-import image from "../images/books.jpg";
+import axios from "axios";
+
+interface CartItem {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  image?: string;
+}
 
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Dell Laptop",
-      description: "Reliable laptop suitable for students and professionals.",
-      price: 1800,
-      quantity: 1,
-      image: image,
-    },
-    {
-      id: 2,
-      name: "SmartBoard",
-      description: "Interactive smart board ideal for classrooms.",
-      price: 2500,
-      quantity: 2,
-      image: image,
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const userid = localStorage.getItem("id");
 
-  const updateQuantity = (id: number, amount: number) => {
-    setCartItems(prev =>
-      prev.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + amount) }
-          : item
-      )
-    );
+  const removeItem = async (id: number): Promise<void> => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/carts/carts/${id}/`);
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Failed to remove item:", error);
+    }
   };
 
-  const removeItem = (id: number) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
+  const fetchCarts = async (): Promise<void> => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/carts/carts/?userid=${userid}`
+      );
+      const data = await response.json();
+      setCartItems(data);
+    } catch (error) {
+      console.error("Failed to fetch cart items:", error);
+    }
   };
 
-  const grandTotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  useEffect(() => {
+    fetchCarts();
+  }, []);
+
+  const grandTotal = cartItems.reduce((total, item) => total + item.price, 0);
 
   return (
     <div className="bg-[#F0F0FF] min-h-screen">
       <Navbar />
-
       <div className="pt-[100px] px-[80px]">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Your Cart</h2>
 
@@ -53,64 +53,44 @@ const Cart: React.FC = () => {
           <p className="text-gray-600 text-lg">Your cart is empty.</p>
         ) : (
           <div className="space-y-6">
-            {cartItems.map(item => (
+            {cartItems.map((item) => (
               <div
                 key={item.id}
                 className="flex items-start justify-between bg-white p-5 rounded-xl shadow-md"
               >
-                {/* Left - Image */}
                 <div className="flex gap-5">
                   <img
-                    src={item.image}
+                    src={item.image || ""}
                     alt={item.name}
                     className="w-32 h-32 rounded-md object-cover"
                   />
-                  {/* Product Info */}
                   <div>
                     <h3 className="text-xl font-semibold">{item.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {item.description}
+                    </p>
                     <p className="mt-2 text-md text-gray-700 font-semibold">
                       Rs. {item.price}
                     </p>
                   </div>
                 </div>
 
-                {/* Right - Quantity, Total, Remove */}
                 <div className="flex items-center gap-4">
-                  {/* Quantity Controls */}
-                  {/* <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="px-3 py-1 text-xl bg-gray-200 rounded hover:bg-gray-300"
-                    >
-                      −
-                    </button>
-                    <span className="text-lg">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="px-3 py-1 text-xl bg-gray-200 rounded hover:bg-gray-300"
-                    >
-                      +
-                    </button>
-                  </div> */}
-
-                  {/* Total Price */}
                   <p className="text-lg font-bold w-[100px] text-right">
-                    Rs. {item.price * item.quantity}
+                    Rs. {item.price}
                   </p>
 
-                  {/* Remove Button */}
                   <button
                     onClick={() => removeItem(item.id)}
                     className="text-red-500 hover:text-red-700 text-xl"
                     title="Remove"
                   >
+                    🗑️
                   </button>
                 </div>
               </div>
             ))}
 
-            {/* Grand Total */}
             <div className="text-right mt-8">
               <p className="text-2xl font-bold text-gray-800">
                 Grand Total: Rs. {grandTotal}
@@ -122,7 +102,6 @@ const Cart: React.FC = () => {
           </div>
         )}
       </div>
-
       <Footer />
     </div>
   );
