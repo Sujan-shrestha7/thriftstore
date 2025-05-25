@@ -52,7 +52,7 @@ const StoreProducts: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/products/products/"
+          `http://127.0.0.1:8000/products/products/?userid=${userid}`
         );
         const data = await response.json();
         setProducts(data);

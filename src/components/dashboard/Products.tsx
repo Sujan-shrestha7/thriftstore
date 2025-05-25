@@ -86,7 +86,7 @@ const Products: React.FC = () => {
       }
 
       alert("Product added to cart!");
-      navigate("/cart");
+      navigate("/products");
     } catch (error) {
       console.error("Error adding to cart:", error);
       alert("An error occurred. Please try again.");
@@ -155,9 +155,10 @@ const Products: React.FC = () => {
 
               {/* Product Description */}
               {selectedProductIndex === index && (
-                <div className="absolute top-[250px] left-0 w-[250px] bg-[#636363] text-white rounded-md shadow-lg p-4 z-10">
+                <div className="absolute top-[250px] left-0 w-[300px] bg-[#636363] text-white rounded-md shadow-lg p-4 z-10">
                   <h2 className="text-lg font-bold">{product.name}</h2>
-                  <p className="mt-2 text-sm">{product.description}</p>
+                  <p className="mt-2 text-sm flex gap-[10px]"><p className="font-bold text-[14px]"> Used Time: </p> {product.usedtime}</p>
+                  <p className="mt-2 text-sm flex gap-[10px]"><p className="font-bold text-[14px]"> Description: </p> {product.description}</p>
                 </div>
               )}
             </div>
