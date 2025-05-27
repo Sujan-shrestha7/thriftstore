@@ -8,7 +8,7 @@ interface Product {
   id: number;
   name: string;
   category: Category;
-  cat_name: string;
+  category_name: string;
   price: string;
   description: string;
   usedtime: string;
@@ -30,7 +30,7 @@ const StoreProducts: React.FC = () => {
   const [description, setDescription] = useState("");
   const [usedTime, setUsedTime] = useState("");
   const [productImage, setProductImage] = useState<File | null>(null);
-  const userid = localStorage.getItem("id");
+  const sellerid = localStorage.getItem("sellerid");
   // const csrftoken = getCookie("csrftoken");
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const StoreProducts: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/products/products/?userid=${userid}`
+          `http://127.0.0.1:8000/products/products/?userid=${sellerid}`
         );
         const data = await response.json();
         setProducts(data);
@@ -66,7 +66,7 @@ const StoreProducts: React.FC = () => {
   const SubmitProducts = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!productName || !category || !usedTime || !userid) {
+    if (!productName || !category || !usedTime || !sellerid) {
       alert("Please fill all required fields!");
       return;
     }
@@ -77,7 +77,7 @@ const StoreProducts: React.FC = () => {
     formData.append("price", price);
     formData.append("usedtime", usedTime);
     formData.append("description", description);
-    formData.append("userid", userid || "");
+    formData.append("sellerid", sellerid || "");
     formData.append("image", productImage || "");
 
     try {
@@ -184,7 +184,7 @@ const StoreProducts: React.FC = () => {
                     {product.name}
                   </p>
                   <p>
-                    <strong>Category:</strong> {product.cat_name}
+                    <strong>Category:</strong> {product.category_name}
                   </p>
                   <p>
                     <strong>Price:</strong> Rs. {product.price}

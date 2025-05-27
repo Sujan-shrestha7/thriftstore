@@ -40,7 +40,7 @@ const HomeNav = () => {
 
         <div className="flex">
           <button
-            onClick={() => navigate("/storedashboard")}
+            onClick={() => navigate("/sellerform")}
             className="w-[120px] h-[40px] rounded-[5px] font-bold border-none hover:text-[#8C0000]"
           >
             Switch to Store
