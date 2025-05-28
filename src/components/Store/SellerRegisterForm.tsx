@@ -1,63 +1,71 @@
-// src/components/SellerRegisterForm.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getCookie from "../../csrf_token";
 
 const SellerRegisterForm: React.FC = () => {
-  const [fullName, setFullName] = useState('');
+  // State variables for form inputs
+  const [full_name, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [contact, setContact] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  // State for displaying errors or success messages
+  // const [message, setMessage] = useState<string | null>(null);
+  // // State for message type (e.g., 'error', 'success')
+  // const [messageType, setMessageType] = useState<'error' | 'success' | null>(null);
+  // // State for loading indicator during API call
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null); // Clear previous errors
-
-    if (!fullName || !address || !contact || !email || !password) {
-      setError("All fields are required.");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password should be at least 6 characters long.");
-      return;
-    }
-
-    // Handle registration logic here
-    console.log('Registration Attempt:');
-    console.log('Full Name:', fullName);
-    console.log('Address:', address);
-    console.log('Contact:', contact);
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    // Replace with your actual registration API call or logic
-    alert(`Registering Seller: ${fullName} with Email: ${email}`);
-
-    // Reset form (optional)
-    // setFullName('');
-    // setAddress('');
-    // setContact('');
-    // setEmail('');
-    // setPassword('');
-    // setError(null);
-
-    // Example: Navigate to a success page or login page after registration
-    // navigate('/registration-success');
-  };
-
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      const csrftoken = getCookie("csrftoken");
+      // Basic validation
+      if (!full_name || !address || !email || !contact || !password) {
+        alert("Please fill up all the forms!");
+        return;
+      }
+  
+      const formData = {
+        full_name,
+        address,
+        email,
+        contact,
+        password,
+      };
+      try {
+        const response = await fetch("http://127.0.0.1:8000/sellers/sellers/register/", {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken ?? "",
+          },
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.log("Error response:", errorData);
+          alert(errorData.contact[0])
+          return;
+        }
+  
+        await response.json();
+        alert("Registration successful!");
+        navigate("/sellerform");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("An error occurred. Please try again.");
+      }
+    };
+  
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-lg"> {/* Increased max-w for more fields */}
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 font-inter">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-lg">
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
           Seller Registration
         </h2>
-        {error && (
-          <div className="mb-6 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-sm">
-            {error}
-          </div>
-        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
@@ -69,7 +77,7 @@ const SellerRegisterForm: React.FC = () => {
             <input
               type="text"
               id="register-fullname"
-              value={fullName}
+              value={full_name}
               onChange={(e) => setFullName(e.target.value)}
               className="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               placeholder="Enter your full name"
@@ -103,7 +111,7 @@ const SellerRegisterForm: React.FC = () => {
               Contact Number
             </label>
             <input
-              type="tel" // Using type="tel" for semantic contact number input
+              type="tel"
               id="register-contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
@@ -153,9 +161,10 @@ const SellerRegisterForm: React.FC = () => {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading} // Disable button while loading
             >
-              Register
+              {isLoading ? 'Registering...' : 'Register'}
             </button>
           </div>
         </form>
@@ -165,7 +174,7 @@ const SellerRegisterForm: React.FC = () => {
             href=""
             onClick={(e) => {
               e.preventDefault();
-              navigate("/sellerform");
+              navigate("/sellerform"); // Assuming '/sellerform' is your login route
             }}
             className="font-medium text-green-600 hover:text-green-500"
           >
