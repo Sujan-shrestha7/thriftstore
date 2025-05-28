@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import getCookie from "../../csrf_token";
 
 interface Product {
+  sellerid:number;
   id: number;
   name: string;
   category: Category;
@@ -59,6 +60,7 @@ const Products: React.FC = () => {
     const csrftoken = getCookie("csrftoken");
 
     const formData = {
+      sellerid :product.sellerid,
       id: product.id,
       name: product.name,
       price: product.price,

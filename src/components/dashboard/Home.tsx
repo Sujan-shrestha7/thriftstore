@@ -89,7 +89,7 @@ useEffect(() => {
         {/* Product Section */}
         <div className="bg-[#737373] py-10">
           <h2 className="text-center text-white text-2xl font-bold mb-6">
-            Trending Products
+            Products
           </h2>
           <div className="flex gap-[20px] justify-center items-center flex-wrap">
             {products.map((product, index) => (
