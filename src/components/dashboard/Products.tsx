@@ -58,19 +58,19 @@ const Products: React.FC = () => {
   // Handle adding a product to cart
   const handleAddToCart = async (product: Product) => {
     const csrftoken = getCookie("csrftoken");
-
-    const formData = {
-      sellerid :product.sellerid,
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      description: product.description,
-      usedtime: product.usedtime,
-      category: product.category,
-      image: product.image,
-      userid: userId,
-    };
-
+  const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
+    
+  const formData = {
+    sellerid: product.sellerid,
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    description: product.description,
+    usedtime: product.usedtime,
+    category: product.category,
+    image: fullImageUrl, // Send the complete URL here
+    userid: userId,
+  };
     try {
       const response = await fetch("http://127.0.0.1:8000/carts/carts/create/", {
         method: "POST",
@@ -78,7 +78,7 @@ const Products: React.FC = () => {
           "Content-Type": "application/json",
           "X-CSRFToken": csrftoken ?? "",
         },
-        body: JSON.stringify(formData),
+      body: JSON.stringify(formData),
       });
 
       if (!response.ok) {

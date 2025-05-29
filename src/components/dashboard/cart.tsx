@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
               >
                 <div className="flex gap-5">
                   <img
-                    src={item.image || ""}
+                    src={item.image}
                     alt={item.name}
                     className="w-32 h-32 rounded-md object-cover"
                   />
@@ -74,24 +74,27 @@ const Cart: React.FC = () => {
                     </p>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-4">
-                  <p className="text-lg font-bold w-[100px] text-right">
-                    Rs. {item.price}
-                  </p>
-
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    className="text-red-500 hover:text-red-700 text-xl"
-                    title="Remove"
-                  >
-                    🗑️
+                <div className="flex flex-col gap-y-[60px]">
+                  <div className="flex items-center gap-4">
+                    <p className="text-lg font-bold w-[100px] text-right">
+                      Rs. {item.price}
+                    </p>
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      className="text-red-500 hover:text-red-700 text-xl"
+                      title="Remove"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                  <button className="text-[18px] border-[1px] rounded-[5px] ml-[40px] w-[100px]">
+                    Order
                   </button>
                 </div>
               </div>
             ))}
 
-            <div className="text-right mt-8">
+            <div className="text-right mt-8 ">
               <p className="text-2xl font-bold text-gray-800">
                 Grand Total: Rs. {grandTotal}
               </p>

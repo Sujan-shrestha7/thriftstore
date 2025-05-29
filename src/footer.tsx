@@ -1,9 +1,8 @@
-import React from "react";
 import logo from "./components/images/thrr.png";
 
 const Footer = () => {
   return (
-    <div className="w-[100%] h-[250px] text-[#fff] p-[20px] px-[50px] bg-[#000000]">
+    <div className="w-[100%] h-[250px] mt-[30px] text-[#fff] p-[20px] px-[50px] bg-[#000000]">
       <div className=" flex justify-between">
         <div className="flex gap-[10px] ">
           <img src={logo} className="h-[50px] w-[50px] rounded-[50%] " alt="" />
