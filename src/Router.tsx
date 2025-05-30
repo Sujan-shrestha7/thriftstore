@@ -11,6 +11,7 @@ import Order from "./components/Store/Order";
 import Cart from "./components/dashboard/cart";
 import SellerLoginForm from "./components/Store/SellerLoginForm";
 import SellerRegisterForm from "./components/Store/SellerRegisterForm";
+import Myorder from "./components/dashboard/Myorder";
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
           <Route path="/footer" element={<Footer />}></Route>
           <Route path="/products" element={<Products />}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
+          <Route path="/myorder" element={<Myorder/>}></Route>
           <Route path="/storeproducts" element={<StoreProducts/>}></Route>
           <Route path="/storedashboard" element={<StoreDashboard />}></Route>
           <Route path="/order" element={<Order />}></Route>

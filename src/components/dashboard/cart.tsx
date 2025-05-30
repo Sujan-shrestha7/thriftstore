@@ -87,21 +87,21 @@ const Cart: React.FC = () => {
                       🗑️
                     </button>
                   </div>
-                  <button className="text-[18px] border-[1px] rounded-[5px] ml-[40px] w-[100px]">
+                  <button className="text-[18px] text-[#fff] bg-[#FC6E4F] h-[30px] border-[1px] rounded-[5px] ml-[40px] w-[100px]">
                     Order
                   </button>
                 </div>
               </div>
             ))}
 
-            <div className="text-right mt-8 ">
+            {/* <div className="text-right mt-8 ">
               <p className="text-2xl font-bold text-gray-800">
                 Grand Total: Rs. {grandTotal}
               </p>
               <button className="mt-4 px-6 py-2 bg-[#FC6E4F] text-white rounded-md text-lg hover:bg-[#e45738]">
                 Checkout
               </button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>

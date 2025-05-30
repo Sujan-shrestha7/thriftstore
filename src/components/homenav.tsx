@@ -58,9 +58,12 @@ const HomeNav = () => {
             </button>
             {profilemenu && (
               // <div className="fixed inset-0 flex bg-black bg-opacity-50">
-              <div className="absolute items-center justify-center right-4 h-[250px] w-[180px] bg-[#B4B2B2] rounded-[5px]">
-                <p>{name}</p>
-                <button className="bg-[#312E2E] text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
+              <div className="absolute items-center justify-center right-4 h-[250px] p-[20px] w-[180px] bg-[#444444] rounded-[5px]">
+                <p className="text-[18px] text-[#fff]">{name}</p>
+                <button onClick={()=>navigate('/myorder')} className="hover:bg-[#312E2E] text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
+                  My orders
+                </button>
+                <button className="hover:bg-[#312E2E]  text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
                   Logout
                 </button>
               </div>
