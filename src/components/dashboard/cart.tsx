@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../homenav";
 import Footer from "../../footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import getCookie from "../../csrf_token";
 
 interface CartItem {
   id: number;
@@ -10,11 +12,15 @@ interface CartItem {
   price: number;
   quantity: number;
   image?: string;
+  category: string;
+  usedtime : string;
+  sellerid: number;
 }
 
 const Cart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const userid = localStorage.getItem("id");
+  const navigate  =  useNavigate();
 
   const removeItem = async (id: number): Promise<void> => {
     try {
@@ -42,6 +48,44 @@ const Cart: React.FC = () => {
   }, []);
 
   const grandTotal = cartItems.reduce((total, item) => total + item.price, 0);
+  
+const handleAddToCart = async (item: CartItem) => {
+    const csrftoken = getCookie("csrftoken");
+    const fullImageUrl = `http://127.0.0.1:8000/${item.image}`;
+
+    const formData = {
+      // sellerid: item.sellerid,
+      cartid: item.id,
+      sellerid :item.sellerid,
+      userid : userid
+      // userid: userId,
+    };
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/orders/orders/create/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken ?? "",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.contact?.[0] || "Failed to add to cart");
+        return;
+      }
+
+      alert("Product added to cart!");
+      navigate("/products");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div className="bg-[#F0F0FF] min-h-screen">
@@ -87,7 +131,13 @@ const Cart: React.FC = () => {
                       🗑️
                     </button>
                   </div>
-                  <button className="text-[18px] text-[#fff] bg-[#FC6E4F] h-[30px] border-[1px] rounded-[5px] ml-[40px] w-[100px]">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(item);
+                    }} 
+                    title="Order now"
+                    className="text-[18px] text-[#fff] bg-[#FC6E4F] h-[30px] border-[1px] rounded-[5px] ml-[40px] w-[100px]">
                     Order
                   </button>
                 </div>

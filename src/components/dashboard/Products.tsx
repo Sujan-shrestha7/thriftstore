@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import getCookie from "../../csrf_token";
 
 interface Product {
-  sellerid:number;
+  sellerid: number;
   id: number;
   name: string;
   category: Category;
@@ -31,7 +31,9 @@ interface Category {
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedProductIndex, setSelectedProductIndex] = useState<number | null>(null);
+  const [selectedProductIndex, setSelectedProductIndex] = useState<
+    number | null
+  >(null);
   const navigate = useNavigate();
   const userId = localStorage.getItem("id");
 
@@ -39,7 +41,9 @@ const Products: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/products/products/");
+        const response = await fetch(
+          "http://127.0.0.1:8000/products/products/"
+        );
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -52,34 +56,37 @@ const Products: React.FC = () => {
 
   // Toggle product description
   const toggleDescription = (index: number) => {
-    setSelectedProductIndex(prev => (prev === index ? null : index));
+    setSelectedProductIndex((prev) => (prev === index ? null : index));
   };
 
   // Handle adding a product to cart
   const handleAddToCart = async (product: Product) => {
     const csrftoken = getCookie("csrftoken");
-  const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
-    
-  const formData = {
-    sellerid: product.sellerid,
-    id: product.id,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    usedtime: product.usedtime,
-    category: product.category,
-    image: fullImageUrl, // Send the complete URL here
-    userid: userId,
-  };
+    const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
+
+    const formData = {
+      sellerid: product.sellerid,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      usedtime: product.usedtime,
+      category: product.category,
+      image: fullImageUrl,
+      userid: userId,
+    };
     try {
-      const response = await fetch("http://127.0.0.1:8000/carts/carts/create/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrftoken ?? "",
-        },
-      body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/carts/carts/create/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken ?? "",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -102,7 +109,9 @@ const Products: React.FC = () => {
       <div className="my-[90px]">
         {/* Top section with title and search */}
         <div className="flex items-center justify-between px-[80px]">
-          <p className="text-[28px] font-semibold text-[#473F40]">Your Search Results</p>
+          <p className="text-[28px] font-semibold text-[#473F40]">
+            Your Search Results
+          </p>
           <div className="relative flex items-center">
             <input
               type="text"
@@ -122,7 +131,10 @@ const Products: React.FC = () => {
         <div className="mt-[70px] px-[200px] flex flex-wrap gap-[20px] justify-around relative">
           {products.map((product, index) => (
             <div key={product.id} className="relative">
-              <div onClick={() => toggleDescription(index)} className="cursor-pointer">
+              <div
+                onClick={() => toggleDescription(index)}
+                className="cursor-pointer"
+              >
                 {/* Product Image */}
                 <div className="h-[230px] w-[250px] bg-black rounded-[30px] overflow-hidden">
                   <img
@@ -138,7 +150,11 @@ const Products: React.FC = () => {
                     {product.name} - {product.price}
                   </p>
                   <div className="flex items-center justify-center gap-[10px]">
-                    <img src={locationIcon} className="h-[18px] w-[18px]" alt="Location" />
+                    <img
+                      src={locationIcon}
+                      className="h-[18px] w-[18px]"
+                      alt="Location"
+                    />
                     <p className="font-bold text-[14px]">{product.address}</p>
                   </div>
 
@@ -159,8 +175,14 @@ const Products: React.FC = () => {
               {selectedProductIndex === index && (
                 <div className="absolute top-[250px] left-0 w-[300px] bg-[#636363] text-white rounded-md shadow-lg p-4 z-10">
                   <h2 className="text-lg font-bold">{product.name}</h2>
-                  <p className="mt-2 text-sm flex gap-[10px]"><p className="font-bold text-[14px]"> Used Time: </p> {product.usedtime}</p>
-                  <p className="mt-2 text-sm flex gap-[10px]"><p className="font-bold text-[14px]"> Description: </p> {product.description}</p>
+                  <p className="mt-2 text-sm flex gap-[10px]">
+                    <p className="font-bold text-[14px]"> Used Time: </p>{" "}
+                    {product.usedtime}
+                  </p>
+                  <p className="mt-2 text-sm flex gap-[10px]">
+                    <p className="font-bold text-[14px]"> Description: </p>{" "}
+                    {product.description}
+                  </p>
                 </div>
               )}
             </div>
