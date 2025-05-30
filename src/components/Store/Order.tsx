@@ -14,6 +14,7 @@ type OrderItem = {
   product_price: string;
   sellerid: number;
   product_image?:string;
+  totalAmount : number;
 };
 
 const Order: React.FC = () => {
@@ -36,14 +37,9 @@ const Order: React.FC = () => {
   useEffect(() => {
     fetchOrders();
   },[]);
-// 
-//   const order: OrderItem[] = Array.from({ length: 20 }, (_, index) => ({
-//     sn: index + 1,
-//     location: "Banepa-6, Kavre",
-//     amount: 830,
-//   }));
-// 
-  // const totalAmount: number = orders.reduce((acc, order) => acc + order.product_price, 0);
+
+  const totalAmount: number = orders.reduce((acc, order) => acc + parseFloat(order.product_price), 0);
+
 
   return (
     <div>
@@ -118,7 +114,7 @@ const Order: React.FC = () => {
             <div className="w-[180px] h-[45px] text-[18px]">Total</div>
             <div className="w-[180px] h-[45px] text-[18px]"></div>
             <div className="w-[180px] h-[45px] text-[18px]"></div>
-            <div className="w-[180px] h-[45px] text-[18px]">Rs. aalu</div>
+            <div className="w-[180px] h-[45px] text-[18px]">Rs. {totalAmount.toFixed(2)}</div>
           </div>
         </div>
       </div>
