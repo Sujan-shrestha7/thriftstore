@@ -29,6 +29,7 @@ const SellerLoginForm: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('sellerid', data.data.id); 
+        localStorage.setItem('sellername', data.data.full_name); 
         console.log('Login successful:', data);
         navigate('/storedashboard');
       } else {

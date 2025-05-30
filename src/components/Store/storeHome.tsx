@@ -9,7 +9,7 @@ const StoreHome: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [activeItem, setActiveItem] = useState<string>("Dashboard");
   const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
-  let name = localStorage.getItem("name");
+  let name = localStorage.getItem("sellername");
 
   const menuItems = [
     { name: "Dashboard", path: "/storedashboard", icon: img },
