@@ -1,6 +1,5 @@
 import React from "react";
 import StoreHome from "./storeHome";
-import image from "../images/books.jpg";
 import { useState, useEffect } from "react";
 
 type OrderItem = {
@@ -25,7 +24,7 @@ const Order: React.FC = () => {
   const fetchOrders = async(): Promise<void> =>{
     try{
       const response = await fetch(
-        `http://127.0.0.1:8000/orders/orders/`
+        `http://127.0.0.1:8000/orders/orders/?sellerid=${sellerid}`
       );
       const data = await response.json();
       setOrders(data);
