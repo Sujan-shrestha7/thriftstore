@@ -3,11 +3,12 @@ import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
 import bookImg from "../images/books.jpg";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [product, setProducts] = useState<string>('');
+  const [product, setProducts] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const name = localStorage.getItem("name");
 
   const products = [
@@ -47,18 +48,18 @@ const Home = () => {
       image: bookImg,
     },
   ];
-const fetchProducts = async (): Promise<void> =>{
-  try{
-    const response = await fetch('http://127.0.0.1:8000/products/products/');
-    const data = await response.json();
-    setProducts(data);
-  }catch (error) {
-    console.log("Failed to fetch books:", error);
-  }
-}
-useEffect(() => {
-  fetchProducts();
-}, []);
+  const fetchProducts = async (): Promise<void> => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/products/products/");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.log("Failed to fetch books:", error);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <div>
@@ -76,10 +77,15 @@ useEffect(() => {
             <div className="flex flex-wrap gap-[10px]">
               <input
                 type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search here..."
                 className="border-2 w-[290px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
-              <button className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400">
+              <button
+                onClick={() => navigate(`/products?product=${search}`)}
+                className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400"
+              >
                 Search
               </button>
             </div>

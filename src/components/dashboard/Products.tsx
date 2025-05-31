@@ -1,9 +1,10 @@
 import Navbar from "../homenav";
 import Footer from "../../footer";
 import locationIcon from "../images/location.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import getCookie from "../../csrf_token";
+import axios from "axios";
 
 interface Product {
   sellerid: number;
@@ -36,23 +37,34 @@ const Products: React.FC = () => {
   >(null);
   const navigate = useNavigate();
   const userId = localStorage.getItem("id");
-
+  const locationRouter = useLocation();
+  const queryParams = new URLSearchParams(locationRouter.search);
+  const product = queryParams.get("product");
   // Fetch all products on mount
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await fetch(
+//           "http://127.0.0.1:8000/products/products/"
+//         );
+//         const data = await response.json();
+//         setProducts(data);
+//       } catch (error) {
+//         console.error("Failed to fetch products:", error);
+//       }
+//     };
+// 
+//     fetchProducts();
+//   }, []);
+  
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/products/products/"
-        );
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    if (product) {
+      axios
+        .get(`http://127.0.0.1:8000/products/products/?product=${product}`)
+        .then((res) => setProducts(res.data))
+        .catch((err) => console.error("Error fetching foods:", err));
+    }
+  }, [product]);
 
   // Toggle product description
   const toggleDescription = (index: number) => {
