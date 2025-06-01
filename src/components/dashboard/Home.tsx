@@ -1,64 +1,30 @@
 import HomeNav from "../homenav";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
-import bookImg from "../images/books.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [product, setProducts] = useState<string>("");
   const [search, setSearch] = useState<string>("");
   const name = localStorage.getItem("name");
+  
+  const [recommended, setRecommended] = useState<any[]>([]);
 
-  const products = [
-    {
-      id: 1,
-      name: "Harry Potter",
-      category: "Books",
-      price: "Rs. 500",
-      image: bookImg,
-    },
-    {
-      id: 2,
-      name: "Smart Watch",
-      category: "Electronics",
-      price: "Rs. 2000",
-      image: bookImg,
-    },
-    {
-      id: 3,
-      name: "Denim Jacket",
-      category: "Clothing",
-      price: "Rs. 800",
-      image: bookImg,
-    },
-    {
-      id: 4,
-      name: "Bluetooth Speaker",
-      category: "Electronics",
-      price: "Rs. 1500",
-      image: bookImg,
-    },
-    {
-      id: 5,
-      name: "Study Lamp",
-      category: "Home",
-      price: "Rs. 400",
-      image: bookImg,
-    },
-  ];
-  const fetchProducts = async (): Promise<void> => {
+  const fetchRecommended = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/products/products/");
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.log("Failed to fetch books:", error);
+      const res = await axios.get(
+        "http://127.0.0.1:8000/products/products/recommend/42/"
+      );
+      setRecommended(res.data);
+    } catch (err) {
+      console.error("Failed to fetch recommendations:", err);
     }
   };
+
   useEffect(() => {
-    fetchProducts();
+    fetchRecommended();
   }, []);
 
   return (
@@ -98,7 +64,7 @@ const Home = () => {
             Products
           </h2>
           <div className="flex gap-[20px] justify-center items-center flex-wrap">
-            {products.map((product, index) => (
+            {recommended.map((product, index) => (
               <div
                 key={product.id}
                 onClick={index === 0 ? () => navigate("/products") : undefined}

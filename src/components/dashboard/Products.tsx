@@ -40,23 +40,7 @@ const Products: React.FC = () => {
   const locationRouter = useLocation();
   const queryParams = new URLSearchParams(locationRouter.search);
   const product = queryParams.get("product");
-  // Fetch all products on mount
-//   useEffect(() => {
-//     const fetchProducts = async () => {
-//       try {
-//         const response = await fetch(
-//           "http://127.0.0.1:8000/products/products/"
-//         );
-//         const data = await response.json();
-//         setProducts(data);
-//       } catch (error) {
-//         console.error("Failed to fetch products:", error);
-//       }
-//     };
-// 
-//     fetchProducts();
-//   }, []);
-  
+
   useEffect(() => {
     if (product) {
       axios

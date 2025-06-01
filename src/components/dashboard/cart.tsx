@@ -47,11 +47,11 @@ const Cart: React.FC = () => {
     fetchCarts();
   }, []);
 
-  const grandTotal = cartItems.reduce((total, item) => total + item.price, 0);
+  // const grandTotal = cartItems.reduce((total, item) => total + item.price, 0);
   
 const handleAddToCart = async (item: CartItem) => {
     const csrftoken = getCookie("csrftoken");
-    const fullImageUrl = `http://127.0.0.1:8000/${item.image}`;
+    // const fullImageUrl = `http://127.0.0.1:8000/${item.image}`;
 
     const formData = {
       // sellerid: item.sellerid,
@@ -79,8 +79,9 @@ const handleAddToCart = async (item: CartItem) => {
         return;
       }
 
-      alert("Product added to cart!");
-      navigate("/products");
+      alert("Product ordered successfully!");
+      // removeItem(item.id);
+      navigate("/cart");
     } catch (error) {
       console.error("Error adding to cart:", error);
       alert("An error occurred. Please try again.");

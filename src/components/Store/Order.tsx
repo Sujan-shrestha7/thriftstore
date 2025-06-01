@@ -80,7 +80,7 @@ const Order: React.FC = () => {
               {order.useraddress}
             </div>
             <div className="w-[180px] h-[45px] pt-[8px] text-[18px] font-bold text-[#666666]">
-              Juggers
+              {order.product_name}
             </div>
             <div className="w-[180px] h-[45px] pt-[8px] text-[18px] font-bold text-[#666666]">
               Rs. {order.product_price}
