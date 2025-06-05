@@ -3,16 +3,22 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import StoreHome from './storeHome';
 
-interface Product {
+interface Order {
   id: number;
+  billno: number;
+  userid: number;
+  username: string;
+  useraddress: string;
+  usercontact: string;
+  cartid: number;
   product_name: string;
+  product_price: string;
+  sellerid: number;
   product_image: string;
-  product_price: number;
-  description: string;
 }
 
 const OrderView: React.FC = () => {
-  const [view, setView] = useState<Product | null>(null);
+  const [view, setView] = useState<Order | null>(null);
   const locationRouter = useLocation();
   const queryParams = new URLSearchParams(locationRouter.search);
   const productid = queryParams.get("id");
@@ -22,7 +28,9 @@ const OrderView: React.FC = () => {
       axios
         .get(`http://127.0.0.1:8000/orders/orders/?id=${productid}`)
         .then((res) => {
-          setView(res.data); // assuming it's a single object
+          if (res.data.length > 0) {
+            setView(res.data[0]); // Set first item of the array
+          }
         })
         .catch((err) => console.error("Error fetching product:", err));
     }
@@ -32,13 +40,16 @@ const OrderView: React.FC = () => {
     <div>
       <StoreHome />
       <div className="ml-[273px] m-[30px]">
-        {view && (
+        {view ? (
           <div className="flex justify-center gap-[30px] border-[2px] h-[500px] border-black p-4 mb-4">
             <div>
               <h2 className="text-center text-xl font-semibold mb-4">Order Details</h2>
-              <p><strong>Name:</strong> {view.product_name}</p>
+              <p><strong>Product Name:</strong> {view.product_name}</p>
               <p><strong>Price:</strong> Rs. {view.product_price}</p>
-              <p><strong>Description:</strong> {view.description || "No description"}</p>
+              <p><strong>Customer:</strong> {view.username}</p>
+              <p><strong>Address:</strong> {view.useraddress}</p>
+              <p><strong>Contact:</strong> {view.usercontact}</p>
+              <p><strong>Bill No:</strong> {view.billno}</p>
             </div>
 
             <div className="flex items-center">
@@ -49,6 +60,8 @@ const OrderView: React.FC = () => {
               />
             </div>
           </div>
+        ) : (
+          <p>Loading...</p>
         )}
       </div>
     </div>
