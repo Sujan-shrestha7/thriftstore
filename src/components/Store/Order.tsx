@@ -103,7 +103,7 @@ const Order: React.FC = () => {
               />
             </div>
             <div
-              onClick={() => navigate(`/products?product=${order.id}`)}
+              onClick={() => navigate(`/orderview?id=${order.id}`)}
               className="ml-[30px] h-[35px] w-[110px] cursor-pointer rounded-[5px] text-[#fff] bg-[#552177]"
             >
               <a
