@@ -1,6 +1,7 @@
 import React from "react";
 import StoreHome from "./storeHome";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type OrderItem = {
   id: number;
@@ -13,33 +14,34 @@ type OrderItem = {
   product_name: string;
   product_price: string;
   sellerid: number;
-  product_image?:string;
-  totalAmount : number;
+  product_image?: string;
+  totalAmount: number;
 };
 
 const Order: React.FC = () => {
-
   const [orders, setOrders] = useState<OrderItem[]>([]);
-  const sellerid = localStorage.getItem('sellerid');
+  const sellerid = localStorage.getItem("sellerid");
+  const navigate = useNavigate();
 
-  const fetchOrders = async(): Promise<void> =>{
-    try{
+  const fetchOrders = async (): Promise<void> => {
+    try {
       const response = await fetch(
         `http://127.0.0.1:8000/orders/orders/?sellerid=${sellerid}`
       );
       const data = await response.json();
       setOrders(data);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Failed to fetch order items:", error);
     }
-  }
+  };
   useEffect(() => {
     fetchOrders();
-  },[]);
+  }, []);
 
-  const totalAmount: number = orders.reduce((acc, order) => acc + parseFloat(order.product_price), 0);
-
+  const totalAmount: number = orders.reduce(
+    (acc, order) => acc + parseFloat(order.product_price),
+    0
+  );
 
   return (
     <div>
@@ -54,10 +56,18 @@ const Order: React.FC = () => {
             <div className="h-[1px] bg-[#D6D6D6] blur-sm w-full"></div>
           </div>
           <ul className="bgcolor flex flex-wrap text-center">
-            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">S.N</li>
-            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">Location</li>
-            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">Product</li>
-            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">Amount</li>
+            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">
+              S.N
+            </li>
+            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">
+              Location
+            </li>
+            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">
+              Product
+            </li>
+            <li className="w-[180px] h-[45px] text-[18px] mt-[10px] font-bold text-[#404040]">
+              Amount
+            </li>
           </ul>
 
           <div className="w-full h-[1px] bg-[#A1A1A1]">
@@ -92,10 +102,12 @@ const Order: React.FC = () => {
                 alt="Product"
               />
             </div>
-            <div className="ml-[30px] h-[35px] w-[110px] cursor-pointer rounded-[5px] text-[#fff] bg-[#552177]">
+            <div
+              onClick={() => navigate(`/products?product=${order.id}`)}
+              className="ml-[30px] h-[35px] w-[110px] cursor-pointer rounded-[5px] text-[#fff] bg-[#552177]"
+            >
               <a
-                href="#"
-                target="_blank"
+                href=""
                 rel="noopener noreferrer"
                 className="block w-full h-full text-center pt-[5px]"
               >
@@ -114,7 +126,9 @@ const Order: React.FC = () => {
             <div className="w-[180px] h-[45px] text-[18px]">Total</div>
             <div className="w-[180px] h-[45px] text-[18px]"></div>
             <div className="w-[180px] h-[45px] text-[18px]"></div>
-            <div className="w-[180px] h-[45px] text-[18px]">Rs. {totalAmount.toFixed(2)}</div>
+            <div className="w-[180px] h-[45px] text-[18px]">
+              Rs. {totalAmount.toFixed(2)}
+            </div>
           </div>
         </div>
       </div>

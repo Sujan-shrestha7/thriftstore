@@ -12,6 +12,7 @@ import Cart from "./components/dashboard/cart";
 import SellerLoginForm from "./components/Store/SellerLoginForm";
 import SellerRegisterForm from "./components/Store/SellerRegisterForm";
 import Myorder from "./components/dashboard/Myorder";
+import View from "./components/Store/View";
 
 const Router = () => {
   return (
@@ -29,6 +30,7 @@ const Router = () => {
           <Route path="/storeproducts" element={<StoreProducts/>}></Route>
           <Route path="/storedashboard" element={<StoreDashboard />}></Route>
           <Route path="/order" element={<Order />}></Route>
+          <Route path="/orderview" element={<View/>}></Route>
           <Route path="/sellerform" element={<SellerLoginForm/>}></Route>
           <Route path="/sellerregisterform" element={<SellerRegisterForm/>}></Route>
           
