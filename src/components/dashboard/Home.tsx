@@ -4,11 +4,35 @@ import aboutbg from "../images/about.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import getCookie from "../../csrf_token";
+interface Product {
+  sellerid: number;
+  id: number;
+  name: string;
+  category: Category;
+  cat_name: string;
+  price: string;
+  description: string;
+  usedtime: string;
+  image?: string;
+  users: Users;
+  address: string;
+}
 
+interface Users {
+  id: number;
+  address: string;
+}
+
+interface Category {
+  id: number;
+  cat_name: string;
+}
 const Home = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
-  const name = localStorage.getItem("name");
+  // const name = localStorage.getItem("name");
+  const userId =  localStorage.getItem("id")
   
   const [recommended, setRecommended] = useState<any[]>([]);
 
@@ -26,6 +50,48 @@ const Home = () => {
   useEffect(() => {
     fetchRecommended();
   }, []);
+
+    // Handle adding a product to cart
+    const handleAddToCart = async (product: Product) => {
+      const csrftoken = getCookie("csrftoken");
+      const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
+  
+      const formData = {
+        sellerid: product.sellerid,
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        usedtime: product.usedtime,
+        category: product.category,
+        image: fullImageUrl,
+        userid: userId,
+      };
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/carts/carts/create/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken ?? "",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          alert(errorData.contact?.[0] || "Failed to add to cart");
+          return;
+        }
+  
+        alert("Product added to cart!");
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+        alert("An error occurred. Please try again.");
+      }
+    };
 
   return (
     <div>
@@ -67,7 +133,6 @@ const Home = () => {
             {recommended.map((product, index) => (
               <div
                 key={product.id}
-                onClick={index === 0 ? () => navigate("/products") : undefined}
                 className="flex flex-col cursor-pointer hover:scale-105 transition-transform"
               >
                 <img
@@ -77,9 +142,18 @@ const Home = () => {
                 />
                 <div className="w-[200px] mt-[10px] bg-[#564343] text-[#fff] font-bold text-center py-2 rounded-[12px]">
                   <p>{product.name}</p>
-                  <p className="text-sm font-normal">{product.category}</p>
-                  <p className="text-sm font-normal">{product.price}</p>
+                  <p className="text-sm font-normal">Rs. {product.price}</p>
                 </div>
+                  {/* Add to Cart Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(product);
+                    }}
+                    className="mt-[5px] w-[100px] h-[25px] rounded-[5px] text-white bg-black"
+                  >
+                    Add To Cart
+                  </button>
               </div>
             ))}
           </div>

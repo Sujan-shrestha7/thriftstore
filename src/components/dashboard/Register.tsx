@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Registerform = () => {
   const [fullname, setFullname] = useState<string>("");
   const [address, setAddress] = useState<string>("");
-  const [contact, setContact] = useState<number | string>("");
+  const [contact, setContact] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
