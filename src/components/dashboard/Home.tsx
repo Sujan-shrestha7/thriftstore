@@ -33,13 +33,14 @@ const Home = () => {
   const [search, setSearch] = useState<string>("");
   // const name = localStorage.getItem("name");
   const userId =  localStorage.getItem("id")
+  const rcmdid = localStorage.getItem("rcmdid")
   
   const [recommended, setRecommended] = useState<any[]>([]);
 
   const fetchRecommended = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/products/products/recommend/44/"
+        `http://127.0.0.1:8000/products/products/recommend/${rcmdid}/`
       );
       setRecommended(res.data);
     } catch (err) {

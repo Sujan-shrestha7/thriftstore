@@ -132,9 +132,15 @@ const Products: React.FC = () => {
         {/* Products List */}
         <div className="mt-[70px] px-[200px] flex flex-wrap gap-[20px] justify-around relative">
           {products.map((product, index) => (
-            <div key={product.id} className="relative">
+            <div
+              key={product.id}
+              onClick={() => {
+                localStorage.setItem("rcmdid", product.id.toString());
+                toggleDescription(index);
+              }}
+              className="relative"
+            >
               <div
-                onClick={() => toggleDescription(index)}
                 className="cursor-pointer"
               >
                 {/* Product Image */}
