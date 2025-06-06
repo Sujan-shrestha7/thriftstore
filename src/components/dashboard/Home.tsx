@@ -15,7 +15,7 @@ const Home = () => {
   const fetchRecommended = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/products/products/recommend/42/"
+        "http://127.0.0.1:8000/products/products/recommend/44/"
       );
       setRecommended(res.data);
     } catch (err) {
@@ -38,7 +38,7 @@ const Home = () => {
               Find Your Next Favorite For Less!
             </p>
           </div>
-          <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] bg-[#fff]">
+          <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] px-[30px] bg-[#fff]">
             {/* Search Bar */}
             <div className="flex flex-wrap gap-[10px]">
               <input
@@ -46,7 +46,7 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search here..."
-                className="border-2 w-[290px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 w-[285px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button
                 onClick={() => navigate(`/products?product=${search}`)}
@@ -71,7 +71,7 @@ const Home = () => {
                 className="flex flex-col cursor-pointer hover:scale-105 transition-transform"
               >
                 <img
-                  src={product.image}
+                  src={`http://127.0.0.1:8000/${product.image}`}
                   alt={product.name}
                   className="h-[200px] w-[210px] bg-[#D9D9D9] object-cover rounded-[15px]"
                 />

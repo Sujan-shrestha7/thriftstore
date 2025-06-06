@@ -32,6 +32,7 @@ interface Category {
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [search, setSearch] = useState<string>("");
   const [selectedProductIndex, setSelectedProductIndex] = useState<
     number | null
   >(null);
@@ -111,10 +112,15 @@ const Products: React.FC = () => {
           <div className="relative flex items-center">
             <input
               type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               className="h-[35px] w-[220px] bg-[#F5F3F2] pl-[30px] pr-[10px] rounded-[5px]"
               placeholder="Search for products"
             />
-            <button className="ml-[10px] h-[35px] w-[120px] bg-[#FC6E4F] text-white text-[15px] rounded-[5px]">
+            <button
+              onClick={() => navigate(`/products?product=${search}`)}
+              className="ml-[10px] h-[35px] w-[120px] bg-[#FC6E4F] text-white text-[15px] rounded-[5px]"
+            >
               Search
             </button>
           </div>

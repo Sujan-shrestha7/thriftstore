@@ -19,6 +19,15 @@ const Registerform = () => {
       alert("Please fill up all the forms!");
       return;
     }
+    if (password.length <= 8) {
+      alert("Password must be 8 character long");
+      return;
+    }
+
+    if (!/^(98|97)\d{8}$/.test(contact)) {
+      alert("Please enter a valid 10-digit contact number!");
+      return;
+    }
 
     const formData = {
       fullname,
@@ -39,7 +48,7 @@ const Registerform = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Error response:", errorData);
-        alert(errorData.contact[0])
+        alert(errorData.contact[0]);
         // alert(`Error: ${errorData.message}`);
         // console.log(alert);
         return;
@@ -126,7 +135,13 @@ const Registerform = () => {
           >
             Register
           </button>
-          <p>Already have an Account?<a href="" onClick={() => navigate("/login")} className="font-bold"> Sign In</a></p>
+          <p>
+            Already have an Account?
+            <a href="" onClick={() => navigate("/login")} className="font-bold">
+              {" "}
+              Sign In
+            </a>
+          </p>
         </div>
         {/* Image Section */}
         <div className="flex-shrink-0">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import loginimg from '../images/loginimg.jpg'
+import loginimg from "../images/loginimg.jpg";
 import getCookie from "../../csrf_token";
 import { useNavigate } from "react-router-dom";
 
@@ -10,8 +10,15 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const csrftoken = getCookie("csrftoken");
+
+    if (contact.length <= 9 || contact.length >= 11) {
+      alert("Please enter a valid contact number!");
+      return;
+    }
+    if (password.length <= 8) {
+      alert;
+    }
     // Basic validation
     if (!contact || !password) {
       alert("Please enter both email and password!");
@@ -37,15 +44,15 @@ const LoginForm = () => {
         const errorData = await response.json();
         console.log("Error response:", errorData);
         alert(`Error: ${errorData.message || "Invalid credentials"}`);
-        console.log(alert)
+        console.log(alert);
         return;
       }
 
-      const data= await response.json();
-      console.log("response is",data);
-      console.log("name",data.data.fullname);
-      localStorage.setItem('name',data.data.fullname);
-      localStorage.setItem('id',data.data.id);
+      const data = await response.json();
+      console.log("response is", data);
+      console.log("name", data.data.fullname);
+      localStorage.setItem("name", data.data.fullname);
+      localStorage.setItem("id", data.data.id);
       alert("Login successful!");
       navigate("/home");
     } catch (error) {
@@ -102,9 +109,15 @@ const LoginForm = () => {
             </label>
             <div className="flex justify-between">
               <label htmlFor="" className="flex gap-[5px]">
-            <input type="checkbox"/> <p className="text-[16px]">Remember me</p>
+                <input type="checkbox" />{" "}
+                <p className="text-[16px]">Remember me</p>
               </label>
-              <p><a href="" className="text-[16px]"> Forgot Password?</a></p>
+              <p>
+                <a href="" className="text-[16px]">
+                  {" "}
+                  Forgot Password?
+                </a>
+              </p>
             </div>
           </div>
           <button
@@ -113,7 +126,17 @@ const LoginForm = () => {
           >
             Login
           </button>
-          <p>Don't have an Account?<a href="" onClick={() => navigate("/register")} className="font-bold"> Sign Up</a></p>
+          <p>
+            Don't have an Account?
+            <a
+              href=""
+              onClick={() => navigate("/register")}
+              className="font-bold"
+            >
+              {" "}
+              Sign Up
+            </a>
+          </p>
         </div>
       </div>
     </div>
