@@ -16,6 +16,14 @@ const HomeNav = () => {
     setProfilemenu(!profilemenu);
   };
 
+  const handleLogout = () => {
+    // Remove all localStorage items
+    localStorage.clear();
+
+    // Redirect to home page
+    navigate("/");
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center h-[60px] w-[100%] bg-[#fff] px-[100px]">
@@ -45,7 +53,10 @@ const HomeNav = () => {
           >
             Switch to Store
           </button>
-          <button onClick={()=> navigate("/cart")} className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none ">
+          <button
+            onClick={() => navigate("/cart")}
+            className="ml-[50px] w-[70px] h-[40px] rounded-[5px] font-bold border-none "
+          >
             <img src={cart} className="w-[35px] h-[25px]" alt="" />
           </button>
           <div>
@@ -60,10 +71,13 @@ const HomeNav = () => {
               // <div className="fixed inset-0 flex bg-black bg-opacity-50">
               <div className="absolute items-center justify-center right-4 h-[250px] p-[20px] w-[180px] bg-[#444444] rounded-[5px]">
                 <p className="text-[18px] text-[#fff]">{name}</p>
-                <button onClick={()=>navigate('/myorder')} className="hover:bg-[#312E2E] text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
+                {/* <button onClick={()=>navigate('/myorder')} className="hover:bg-[#312E2E] text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
                   My orders
-                </button>
-                <button className="hover:bg-[#312E2E]  text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer">
+                </button> */}
+                <button
+                  onClick={handleLogout}
+                  className="hover:bg-[#312E2E]  text-[#fff] h-[35px] w-[120px] rounded-[5px] cursor-pointer"
+                >
                   Logout
                 </button>
               </div>

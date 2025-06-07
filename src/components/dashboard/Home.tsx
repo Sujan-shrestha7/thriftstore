@@ -113,7 +113,7 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search here..."
-                className="border-2 w-[285px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
               />
               <button
                 onClick={() => navigate(`/products?product=${search}`)}

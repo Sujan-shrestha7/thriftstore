@@ -47,8 +47,8 @@ const OrderView: React.FC = () => {
               <p><strong>Product Name:</strong> {view.product_name}</p>
               <p><strong>Price:</strong> Rs. {view.product_price}</p>
               <p><strong>Customer:</strong> {view.username}</p>
-              <p><strong>Address:</strong> {view.useraddress}</p>
-              <p><strong>Contact:</strong> {view.usercontact}</p>
+              <p><strong>Customer Address:</strong> {view.useraddress}</p>
+              <p><strong>Customer Contact:</strong> {view.usercontact}</p>
               <p><strong>Bill No:</strong> {view.billno}</p>
             </div>
 

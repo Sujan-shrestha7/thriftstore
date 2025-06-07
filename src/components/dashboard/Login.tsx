@@ -14,7 +14,7 @@ const Login= () => {
                 <p className=" text-[52px] text-[#8E6969] font-bold">Find Your Next Favorite For Less !</p>
             </div>
         </div>
-        
+{/*         
         <div>
           <div className="flex gap-[20px] justify-center items-center h-[400px] bg-[#737373]">
             <div className="flex flex-col ml-[5px]">
@@ -48,7 +48,7 @@ const Login= () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       
         <div className="h-[400px] flex flex-col md:flex-row">
           <div className="text-[18px] pt-[100px] text-[#282727] p-[20px] text-center font-bold">

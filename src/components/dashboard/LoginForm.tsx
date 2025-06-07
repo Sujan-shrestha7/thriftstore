@@ -19,7 +19,6 @@ const LoginForm = () => {
     if (password.length <= 8) {
       alert;
     }
-    // Basic validation
     if (!contact || !password) {
       alert("Please enter both email and password!");
       return;
@@ -43,7 +42,7 @@ const LoginForm = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Error response:", errorData);
-        alert(`Error: ${errorData.message || "Invalid credentials"}`);
+        alert(`Error: ${errorData.message || "Number or Password Invalid !"}`);
         console.log(alert);
         return;
       }

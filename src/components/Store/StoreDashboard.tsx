@@ -12,8 +12,8 @@ const StoreDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const dashboardItems: DashboardItem[] = [
-    { title: 'Total Items', count: 112, bg: 'bg-[#FDDDC8]' },
-    { title: 'Total Orders', count: 67, bg: 'bg-[#B88FD6]' },
+    { title: 'Total Items', count: 3, bg: 'bg-[#FDDDC8]' },
+    { title: 'Total Orders', count: 2, bg: 'bg-[#B88FD6]' },
   ];
 
   return (
