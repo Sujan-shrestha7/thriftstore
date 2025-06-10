@@ -31,10 +31,13 @@ interface Category {
 const Home = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
   // const name = localStorage.getItem("name");
-  const userId =  localStorage.getItem("id")
-  const rcmdid = localStorage.getItem("rcmdid")
-  
+  const userId = localStorage.getItem("id");
+  const rcmdid = localStorage.getItem("rcmdid");
+
   const [recommended, setRecommended] = useState<any[]>([]);
 
   const fetchRecommended = async () => {
@@ -52,47 +55,47 @@ const Home = () => {
     fetchRecommended();
   }, []);
 
-    // Handle adding a product to cart
-    const handleAddToCart = async (product: Product) => {
-      const csrftoken = getCookie("csrftoken");
-      const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
-  
-      const formData = {
-        sellerid: product.sellerid,
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        usedtime: product.usedtime,
-        category: product.category,
-        image: fullImageUrl,
-        userid: userId,
-      };
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/carts/carts/create/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrftoken ?? "",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-  
-        if (!response.ok) {
-          const errorData = await response.json();
-          alert(errorData.contact?.[0] || "Failed to add to cart");
-          return;
-        }
-  
-        alert("Product added to cart!");
-      } catch (error) {
-        console.error("Error adding to cart:", error);
-        alert("An error occurred. Please try again.");
-      }
+  // Handle adding a product to cart
+  const handleAddToCart = async (product: Product) => {
+    const csrftoken = getCookie("csrftoken");
+    const fullImageUrl = `http://127.0.0.1:8000/${product.image}`;
+
+    const formData = {
+      sellerid: product.sellerid,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      usedtime: product.usedtime,
+      category: product.category,
+      image: fullImageUrl,
+      userid: userId,
     };
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/carts/carts/create/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken ?? "",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.contact?.[0] || "Failed to add to cart");
+        return;
+      }
+
+      alert("Product added to cart!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div>
@@ -108,18 +111,40 @@ const Home = () => {
           <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] px-[30px] bg-[#fff]">
             {/* Search Bar */}
             <div className="flex flex-wrap gap-[10px]">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-4 rounded-md w-[130px]"
+              >
+                <option value="">Category</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="books">Books</option>
+              </select>
+
+              {/* Price Range Select */}
+              {/* <select
+                value={selectedPriceRange}
+                onChange={(e) => setSelectedPriceRange(e.target.value)}
+                className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-4 rounded-md w-[100px]"
+              >
+                <option value="">Price Range</option>
+                <option value="0-100">₨0 - ₨100</option>
+                <option value="100-500">₨100 - ₨500</option>
+                <option value="500-1000">₨500 - ₨1000</option>
+              </select> */}
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search here..."
-                className="border-2 w-[280px] border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-full"
+                className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-4 pr-10 rounded-md w-[290px]"
               />
               <button
                 onClick={() => navigate(`/products?product=${search}`)}
-                className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center w-[140px] rounded-[5px] border-gray-400"
+                className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center border-[1px] border-[#000000] w-[120px] h-[35px] rounded-[5px] border-gray-400"
               >
-                Search
+              Search
               </button>
             </div>
           </div>
@@ -145,16 +170,16 @@ const Home = () => {
                   <p>{product.name}</p>
                   <p className="text-sm font-normal">Rs. {product.price}</p>
                 </div>
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart(product);
-                    }}
-                    className="mt-[5px] w-[100px] h-[25px] rounded-[5px] text-white bg-black"
-                  >
-                    Add To Cart
-                  </button>
+                {/* Add to Cart Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(product);
+                  }}
+                  className="mt-[5px] w-[100px] h-[25px] rounded-[5px] text-white bg-black"
+                >
+                  Add To Cart
+                </button>
               </div>
             ))}
           </div>

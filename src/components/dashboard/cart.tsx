@@ -29,7 +29,7 @@ const Cart: React.FC = () => {
     } catch (error) {
       console.error("Failed to remove item:", error);
     }
-  };
+  };2
 
   const fetchCarts = async (): Promise<void> => {
     try {
