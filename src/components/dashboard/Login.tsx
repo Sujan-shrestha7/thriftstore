@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import Footer from "../../footer";
 import aboutbg from "../images/about.jpg";
+import { useNavigate } from "react-router-dom";
 
 interface Product{
   image?: string;
@@ -9,8 +10,14 @@ interface Product{
   price : number;
 }
 
+interface Category{
+  id:number;
+  cat_name: string;
+
+}
 const Login = () => {
   const [product, setProduct] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   const fetchProducts = async (): Promise<void> => {
     try {
@@ -39,7 +46,7 @@ const Login = () => {
 
       <div className="flex flex-wrap gap-[20px] justify-center items-center bg-[#737373] py-10">
         {product.map((item, index) => (
-          <div key={index} className="flex flex-col items-center">
+          <div onClick={()=> navigate('/login')} key={index} className="flex flex-col items-center cursor-pointer">
             <div className="h-[200px] w-[210px] bg-[#D9D9D9] rounded-[15px]">
               {/* Add image here if item.image exists */}
               <img src={`http://127.0.0.1:8000/${item.image}`} className="h-[200px] w-[210px] rounded-[15px]" alt="" />
@@ -68,7 +75,6 @@ const Login = () => {
           alt="About Background"
         />
       </div>
-
       <Footer />
     </div>
   );

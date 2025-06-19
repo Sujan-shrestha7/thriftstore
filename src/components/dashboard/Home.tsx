@@ -34,6 +34,7 @@ const Home = () => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [category, setCategory] = useState<Category[]>([]);
   // const name = localStorage.getItem("name");
   const userId = localStorage.getItem("id");
   const rcmdid = localStorage.getItem("rcmdid");
@@ -97,6 +98,21 @@ const Home = () => {
     }
   };
 
+  const fetchCategory = async (): Promise<void> => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/category/category/");
+      const data = await response.json();
+      setCategory(data);
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  });
+
   return (
     <div>
       <HomeNav />
@@ -144,12 +160,33 @@ const Home = () => {
                 onClick={() => navigate(`/products?product=${search}`)}
                 className="bg-[#8E6969] hover:bg-[#000000] hover:text-[#fff] text-center border-[1px] border-[#000000] w-[120px] h-[35px] rounded-[5px] border-gray-400"
               >
-              Search
+                Search
               </button>
             </div>
           </div>
         </div>
-
+        <div className="w-full h-[480px] p-[70px] pl-[11.5%] bg-[#F2F2F2]">
+          <p className="w-full text-center text-[32px]">Our Top Categories</p>
+          <div className="w-full gap-[20px] flex mt-[60px]">
+            <div className="slidebar w-[1000px] overflow-x-auto">
+              <div className="ml-auto categories-list flex gap-[30px] justify-center">
+                {category.map((C) => (
+                  <div
+                    onClick={() =>
+                      navigate(`/top-category?category=${C.cat_name}`)
+                    }
+                    key={C.id}
+                    className="top-categories flex flex-col items-center justify-center shadow-md cursor-pointer"
+                  >
+                    <p className="categories-name mt-[10px] text-lg font-semibold">
+                      {C.cat_name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Product Section */}
         <div className="bg-[#737373] py-10">
           <h2 className="text-center text-white text-2xl font-bold mb-6">
