@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import loginimg from "../images/loginimg.jpg";
 import getCookie from "../../csrf_token";
 import { useNavigate } from "react-router-dom";
+import registerimg from "../images/register.webp"
 
 const Registerform = () => {
   const [fullname, setFullname] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [contact, setContact] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [conf_password, setconf_password] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +30,10 @@ const Registerform = () => {
       alert("Please enter a valid 10-digit contact number!");
       return;
     }
-
+    if(password != conf_password){
+      alert("Password doesn't match !");
+      return;
+    }
     const formData = {
       fullname,
       address,
@@ -65,10 +70,10 @@ const Registerform = () => {
 
   return (
     <div className="p-[5%] px-[20%]">
-      <div className="flex flex-wrap h-[600px] border-2 border-black shadow-xl rounded-lg overflow-hidden">
+      <div className="flex flex-wrap h-[650px] border-2 border-black shadow-xl rounded-lg overflow-hidden">
         {/* Form Section */}
         <div className="flex flex-1 flex-col items-center justify-center bg-gray-100 p-6 gap-[10px]">
-          <p className="text-[24px] font-bold">Login Page</p>
+          <p className="text-[24px] font-bold">Register Page</p>
           <div className="flex flex-col gap-[15px]">
             <label
               htmlFor="fullname"
@@ -125,6 +130,21 @@ const Registerform = () => {
                 placeholder="Enter Your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-[300px] h-[35px] border px-[10px] py-2 rounded-[5px] outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </label>
+            
+            <label
+              htmlFor="password"
+              className="flex flex-col gap-[10px] w-full max-w-[500px]"
+            >
+              <p className="mb-2 text-lg font-medium">Confirm Your Password:</p>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter Your password"
+                value={conf_password}
+                onChange={(e) => setconf_password(e.target.value)}
                 className="w-[300px] h-[35px] border px-[10px] py-2 rounded-[5px] outline-none focus:ring-2 focus:ring-blue-400"
               />
             </label>

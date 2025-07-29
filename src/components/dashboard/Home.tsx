@@ -27,6 +27,7 @@ interface Users {
 interface Category {
   id: number;
   cat_name: string;
+  image?: string;
 }
 const Home = () => {
   const navigate = useNavigate();
@@ -127,7 +128,7 @@ const Home = () => {
           <div className="mt-[10%] rounded-[10px] h-[200px] w-[700px] p-[70px] px-[30px] bg-[#fff]">
             {/* Search Bar */}
             <div className="flex flex-wrap gap-[10px]">
-              <select
+              {/* <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border-2 border-gray-400 bg-[#ECE6F0] h-10 px-4 rounded-md w-[130px]"
@@ -136,7 +137,7 @@ const Home = () => {
                 <option value="electronics">Electronics</option>
                 <option value="fashion">Fashion</option>
                 <option value="books">Books</option>
-              </select>
+              </select> */}
 
               {/* Price Range Select */}
               {/* <select
@@ -165,25 +166,30 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-[480px] p-[70px] pl-[11.5%] bg-[#F2F2F2]">
-          <p className="w-full text-center text-[32px]">Our Top Categories</p>
-          <div className="w-full gap-[20px] flex mt-[60px]">
-            <div className="slidebar w-[1000px] overflow-x-auto">
-              <div className="ml-auto categories-list flex gap-[30px] justify-center">
-                {category.map((C) => (
-                  <div
-                    onClick={() =>
-                      navigate(`/top-category?category=${C.cat_name}`)
-                    }
-                    key={C.id}
-                    className="top-categories flex flex-col items-center justify-center shadow-md cursor-pointer"
-                  >
-                    <p className="categories-name mt-[10px] text-lg font-semibold">
-                      {C.cat_name}
-                    </p>
-                  </div>
-                ))}
-              </div>
+        <div className="w-full h-[480px] p-[70px] bg-[#F2F2F2]">
+          <p className="w-full text-center font-bold text-[32px]">
+            Our Top Categories
+          </p>
+          <div className="w-full gap-[20px] flex justify-center items-center mt-[60px]">
+            <div className="categories-list flex gap-[30px] justify-center">
+              {category.map((C) => (
+                <div
+                  onClick={() => navigate(`/products?product=${C.cat_name}`)}
+                  key={C.id}
+                  className="top-categories flex flex-col items-center justify-center shadow-md cursor-pointer"
+                >
+                  <p>
+                    <img
+                      className="h-[150px] w-[140px] rounded-[8px]"
+                      src={`http://127.0.0.1:8000/${C.image}`}
+                      alt=""
+                    />
+                  </p>
+                  <p className="categories-name mt-[10px] text-lg font-bold bg-[#bfbaba] px-[20px]  rounded-[5px]">
+                    {C.cat_name}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
