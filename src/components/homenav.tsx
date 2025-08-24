@@ -51,7 +51,7 @@ const HomeNav = () => {
             onClick={() => navigate("/sellerform")}
             className="w-[120px] h-[40px] rounded-[5px] font-bold border-none hover:text-[#8C0000]"
           >
-            Switch to Store
+            Switch to Seller
           </button>
           <button
             onClick={() => navigate("/cart")}

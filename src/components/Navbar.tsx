@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   
   return (
-    <div>
+    <div className="sticky">
       <div className="flex justify-between items-center h-[60px] w-[100%] bg-[#fff] px-[100px]">
         <div className="ml-[-2%] flex gap-[10px] items-center justify-center">
           <img src={logo} className="h-[55px] w-[55px]" alt="" />

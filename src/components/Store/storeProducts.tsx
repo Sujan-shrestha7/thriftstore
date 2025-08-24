@@ -219,7 +219,7 @@ const StoreProducts: React.FC = () => {
                   />
                   <div className="mb-4">
                     <select
-                      className="border border-black h-[35px] rounded-[5px] p-[10px]"
+                      className="border border-black h-[45px] rounded-[5px] p-[10px]"
                       name="foodCategory"
                       value={category}
                       onChange={(e) => setCategory(Number(e.target.value))}

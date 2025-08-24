@@ -42,7 +42,6 @@ const Order: React.FC = () => {
     (acc, order) => acc + parseFloat(order.product_price),
     0
   );
-
   return (
     <div>
       <StoreHome />
@@ -76,7 +75,7 @@ const Order: React.FC = () => {
         </div>
 
         {/* Orders List */}
-        {orders.map((order) => (
+        {orders.map((order, index) => (
           <div
             key={order.id}
             className={`flex text-center items-center gap-[3px] ${
@@ -84,7 +83,7 @@ const Order: React.FC = () => {
             }`}
           >
             <div className="w-[180px] h-[45px] pt-[8px] text-[18px] font-bold text-[#666666]">
-              {order.id}
+              {index + 1}
             </div>
             <div className="w-[180px] h-[45px] pt-[8px] text-[18px] font-bold text-[#666666]">
               {order.useraddress}

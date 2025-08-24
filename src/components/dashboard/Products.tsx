@@ -134,7 +134,7 @@ const Products: React.FC = () => {
           {products.map((product, index) => (
             <div
               key={product.id}
-              onClick={() => {
+              onClick={() => {333
                 localStorage.setItem("rcmdid", product.id.toString());
                 toggleDescription(index);
               }}

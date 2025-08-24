@@ -36,6 +36,9 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [category, setCategory] = useState<Category[]>([]);
+  const [selectedProductIndex, setSelectedProductIndex] = useState<
+    number | null
+  >(null);
   // const name = localStorage.getItem("name");
   const userId = localStorage.getItem("id");
   const rcmdid = localStorage.getItem("rcmdid");
@@ -56,6 +59,11 @@ const Home = () => {
   useEffect(() => {
     fetchRecommended();
   }, []);
+
+    // Toggle product description
+  const toggleDescription = (index: number) => {
+    setSelectedProductIndex((prev) => (prev === index ? null : index));
+  };
 
   // Handle adding a product to cart
   const handleAddToCart = async (product: Product) => {
@@ -202,6 +210,7 @@ const Home = () => {
             {recommended.map((product, index) => (
               <div
                 key={product.id}
+                // onClick={toggleDescription(index)}
                 className="flex flex-col cursor-pointer hover:scale-105 transition-transform"
               >
                 <img
@@ -213,6 +222,7 @@ const Home = () => {
                   <p>{product.name}</p>
                   <p className="text-sm font-normal">Rs. {product.price}</p>
                 </div>
+                
                 {/* Add to Cart Button */}
                 <button
                   onClick={(e) => {
@@ -223,6 +233,20 @@ const Home = () => {
                 >
                   Add To Cart
                 </button>
+              {/* Product Description */}
+              {selectedProductIndex === index && (
+                <div className="absolute top-[250px] left-0 w-[300px] bg-[#636363] text-white rounded-md shadow-lg p-4 z-10">
+                  <h2 className="text-lg font-bold">{product.name}</h2>
+                  <p className="mt-2 text-sm flex gap-[10px]">
+                    <p className="font-bold text-[14px]"> Used Time: </p>{" "}
+                    {product.usedtime}
+                  </p>
+                  <p className="mt-2 text-sm flex gap-[10px]">
+                    <p className="font-bold text-[14px]"> Description: </p>{" "}
+                    {product.description}
+                  </p>
+                </div>
+              )}
               </div>
             ))}
           </div>
@@ -233,11 +257,11 @@ const Home = () => {
           <div className="text-[18px] pt-[100px] text-[#282727] p-[20px] text-center font-bold">
             <p>
               Thrift-Store is a Nepal-based platform designed by a BCA student,
-              offering users the ability to purchase second-hand clothes. This
+              offering users the ability to purchase second-hand products. This
               project reflects a sustainable fashion approach, promoting the
               reuse and recycling of garments. It caters to budget-conscious
               consumers or those interested in reducing their environmental
-              impact by purchasing preloved clothing.
+              impact by purchasing preloved products.
             </p>
           </div>
           <img
